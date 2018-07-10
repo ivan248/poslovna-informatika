@@ -37,11 +37,39 @@ public class Converter {
 		
 		Proizvod p = new Proizvod();
 		
+		if(proizvodDTO.getId() != null)
+			p.setId(proizvodDTO.getId());
+		
 		p.setGrupaProizvoda(proizvodDTO.getGrupaProizvoda());
 		p.setJedinicaMere(proizvodDTO.getJedinicaMere());
 		p.setNazivProizvoda(proizvodDTO.getNazivProizvoda());
 		p.setVrstaProizvoda(proizvodDTO.getVrstaProizvoda());
 		
 		return p;
+	}
+
+	public static ProizvodDTO convertProizvodToProizvodDTO(Proizvod proizvod) {
+		
+		ProizvodDTO proizvodDTO = new ProizvodDTO();
+		
+		proizvodDTO.setId(proizvod.getId());
+		
+		GrupaProizvoda gp = new GrupaProizvoda();
+		gp.setId(proizvod.getGrupaProizvoda().getId());
+		gp.setNazivGrupeProizvoda(proizvod.getGrupaProizvoda().getNazivGrupeProizvoda());
+		
+		proizvodDTO.setGrupaProizvoda(gp);
+		
+		JedinicaMere jm = new JedinicaMere();
+		jm.setId(proizvod.getJedinicaMere().getId());
+		jm.setNazivJediniceMere(proizvod.getJedinicaMere().getNazivJediniceMere());
+		jm.setSkracenica(proizvod.getJedinicaMere().getSkracenica());
+
+		proizvodDTO.setJedinicaMere(jm);
+		
+		proizvodDTO.setNazivProizvoda(proizvod.getNazivProizvoda());
+		proizvodDTO.setVrstaProizvoda(proizvod.getVrstaProizvoda());
+		
+		return proizvodDTO;
 	}
 }

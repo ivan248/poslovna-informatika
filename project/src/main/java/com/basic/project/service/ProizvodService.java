@@ -13,4 +13,10 @@ public interface ProizvodService {
 
 	boolean addProizvod(Proizvod p);
 
+	Proizvod getProizvod(Long proizvodId);
+
+	boolean updateProizvod(Proizvod p);
+
+	boolean deleteProizvod(Long proizvodId);
+
 }
