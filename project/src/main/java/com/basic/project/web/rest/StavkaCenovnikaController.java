@@ -14,56 +14,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.basic.project.domain.Proizvod;
-import com.basic.project.service.ProizvodService;
+import com.basic.project.domain.StavkaCenovnika;
+import com.basic.project.service.StavkaCenovnikaService;
 import com.basic.project.web.dto.Converter;
-import com.basic.project.web.dto.ProizvodDTO;
+import com.basic.project.web.dto.StavkaCenovnikaDTO;
 
 @RestController
-@RequestMapping("/api/proizvod")
-public class ProizvodController {
-
+@RequestMapping("/api/stavkaCenovnika")
+public class StavkaCenovnikaController {
 	@Autowired
-	private ProizvodService proizvodService;
+	private StavkaCenovnikaService service;
 	
 	/*********************************** PROIZVOD CRUD ****************************************************/
 	
 	// GET ALL
 	@GetMapping("/getAll")
-	public ResponseEntity<List<ProizvodDTO>> getAllProizvod() {
+	public ResponseEntity<List<StavkaCenovnikaDTO>> getAll() {
 		
-		return new ResponseEntity<List<ProizvodDTO>>(Converter.convertProizvodsToProizvodDTOs(proizvodService.getAllProizvod()), HttpStatus.OK);
+		return new ResponseEntity<List<StavkaCenovnikaDTO>>(Converter.convertStavkeCenovnikaToStavkeCenovnikaDTOs(service.getAllStavkeCenovnika()), HttpStatus.OK);
 	}
 	
 	// GET ONE
 	@GetMapping("/getOne")
-	public ResponseEntity<ProizvodDTO> getOneProizvod(@RequestParam("id") Long proizvodId) {
+	public ResponseEntity<StavkaCenovnikaDTO> getOneProizvod(@RequestParam("id") Long id) {
 		
-		return new ResponseEntity<ProizvodDTO>(Converter.convertProizvodToProizvodDTO(proizvodService.getProizvod(proizvodId)), HttpStatus.OK);
+		return new ResponseEntity<StavkaCenovnikaDTO>(Converter.convertStavkaCenovnikaToStavkaCenovnikaDTO(service.getStavkaCenovnika(id)), HttpStatus.OK);
 	}
 	
-	/*
-	 * 
-	 * json format for adding a new item
-	 * {
-        "nazivProizvoda": "Ruski Malamut",
-        "vrstaProizvoda": "Zivotinja velika",
-        "jedinicaMere": {
-            "nazivJediniceMere": "Brojno stanje",
-            "skracenica": "br"
-        },
-        "grupaProizvoda": {
-            "nazivGrupeProizvoda": "Psi"
-        }
-  }
-	 */
-	// ADD ONE
+	
 	@PostMapping("/add")
-	public ResponseEntity<Boolean> addProizvod(@RequestBody ProizvodDTO proizvodDTO) {
+	public ResponseEntity<Boolean> addStavkaCenovnika(@RequestBody StavkaCenovnikaDTO StavkaCenovnikaDTO) {
 		
-		Proizvod p = Converter.convertProizvodDTOtoProizvod(proizvodDTO);
-		System.out.println("pogodio");
-		if(proizvodService.addProizvod(p))
+		StavkaCenovnika s = Converter.convertStavkaCenovnikaDTOtoStavkaCenovnika(StavkaCenovnikaDTO);
+		System.out.println("pogodio add stavka");
+		if(service.addStavkaCenovnika(s))
 			return new ResponseEntity<Boolean>(true, HttpStatus.CREATED);
 		
 		return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
@@ -72,12 +56,12 @@ public class ProizvodController {
 	
 	// UPDATE ONE
 	@PutMapping("/update")
-	public ResponseEntity<Boolean> updateProizvod(@RequestBody ProizvodDTO proizvodDTO) {
+	public ResponseEntity<Boolean> updateStavkaCenovnika(@RequestBody StavkaCenovnikaDTO stavkaCenovnikaDTO) {
 		
-		Proizvod p = Converter.convertProizvodDTOtoProizvod(proizvodDTO);
-		System.out.println("Pogodio put");
+		StavkaCenovnika p = Converter.convertStavkaCenovnikaDTOtoStavkaCenovnika(stavkaCenovnikaDTO);
+		System.out.println("Pogodio put stavkka");
 		
-		if(proizvodService.updateProizvod(p))
+		if(service.updateStavkaCenovnika(p))
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		
 		return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
@@ -85,11 +69,11 @@ public class ProizvodController {
 	
 	// DELETE ONE
 	@DeleteMapping("/delete")
-	public ResponseEntity<Boolean> deleteProizvod(@RequestParam("id") Long proizvodId) {
+	public ResponseEntity<Boolean> deleteStavkaCenovnika(@RequestParam("id") Long id) {
 		
 		System.out.println("Pogodio delete");
 		
-		if(proizvodService.deleteProizvod(proizvodId))
+		if(service.deleteStavkaCenovnika(id))
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		
 		return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);

@@ -3,9 +3,11 @@ package com.basic.project.web.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.basic.project.domain.Cenovnik;
 import com.basic.project.domain.GrupaProizvoda;
 import com.basic.project.domain.JedinicaMere;
 import com.basic.project.domain.Proizvod;
+import com.basic.project.domain.StavkaCenovnika;
 
 public class Converter {
 
@@ -71,5 +73,71 @@ public class Converter {
 		proizvodDTO.setVrstaProizvoda(proizvod.getVrstaProizvoda());
 		
 		return proizvodDTO;
+	}
+	
+	//===============================================STAVKA CENOVNIKA =====================================================
+	
+	public static List<StavkaCenovnikaDTO> convertStavkeCenovnikaToStavkeCenovnikaDTOs(List<StavkaCenovnika> listStavkaCenovnika) {
+
+		List<StavkaCenovnikaDTO> listStavkaCenovnikaDTO = new ArrayList<StavkaCenovnikaDTO>();
+		
+		for(StavkaCenovnika s : listStavkaCenovnika)
+		{
+			Proizvod p = new Proizvod();
+			p.setId(s.getProizvod().getId());
+			p.setNazivProizvoda(s.getProizvod().getNazivProizvoda());
+			p.setJedinicaMere(s.getProizvod().getJedinicaMere());
+			p.setVrstaProizvoda(s.getProizvod().getVrstaProizvoda());
+			p.setGrupaProizvoda(s.getProizvod().getGrupaProizvoda());
+
+
+			Cenovnik c = new Cenovnik();
+			c.setDatumVazenja(s.getCenovnik().getDatumVazenja());
+			c.setId(s.getCenovnik().getId());
+			
+			StavkaCenovnikaDTO stavka = new StavkaCenovnikaDTO(s.getId(), s.getCena(),p,c);
+			
+			listStavkaCenovnikaDTO.add(stavka);
+		}
+
+		return listStavkaCenovnikaDTO;
+	}
+	
+	public static StavkaCenovnika convertStavkaCenovnikaDTOtoStavkaCenovnika(StavkaCenovnikaDTO stavkaCenovnikaDTO) {
+		
+		StavkaCenovnika s = new StavkaCenovnika();
+		
+		if(stavkaCenovnikaDTO.getId() != null)
+			s.setId(stavkaCenovnikaDTO.getId());
+		
+		s.setCena(stavkaCenovnikaDTO.getCena());
+		s.setProizvod(stavkaCenovnikaDTO.getProizvod());
+		s.setCenovnik(stavkaCenovnikaDTO.getCenovnik());
+		
+		return s;
+	}
+	
+	public static StavkaCenovnikaDTO convertStavkaCenovnikaToStavkaCenovnikaDTO(StavkaCenovnika stavkaCenovnika) {
+		
+		StavkaCenovnikaDTO stavkaDTO = new StavkaCenovnikaDTO();
+		
+		stavkaDTO.setId(stavkaCenovnika.getId());
+		
+		Proizvod p = new Proizvod();
+		p.setId(stavkaCenovnika.getProizvod().getId());
+		p.setNazivProizvoda(stavkaCenovnika.getProizvod().getNazivProizvoda());
+		p.setVrstaProizvoda(stavkaCenovnika.getProizvod().getVrstaProizvoda());
+		p.setGrupaProizvoda(stavkaCenovnika.getProizvod().getGrupaProizvoda());
+		p.setJedinicaMere(stavkaCenovnika.getProizvod().getJedinicaMere());
+		
+		Cenovnik c = new Cenovnik();
+		c.setDatumVazenja(stavkaCenovnika.getCenovnik().getDatumVazenja());
+		c.setId(stavkaCenovnika.getCenovnik().getId());
+
+		stavkaDTO.setProizvod(p);
+		stavkaDTO.setCena(stavkaCenovnika.getCena());
+		stavkaDTO.setCenovnik(c);
+		
+		return stavkaDTO;
 	}
 }

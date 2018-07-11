@@ -1,16 +1,22 @@
 package com.basic.project.config;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import com.basic.project.domain.Cenovnik;
 import com.basic.project.domain.GrupaProizvoda;
 import com.basic.project.domain.JedinicaMere;
 import com.basic.project.domain.Proizvod;
+import com.basic.project.domain.StavkaCenovnika;
+import com.basic.project.repository.CenovnikRepository;
 import com.basic.project.repository.GrupaProizvodaRepository;
 import com.basic.project.repository.JedinicaMereRepository;
 import com.basic.project.repository.ProizvodRepository;
+import com.basic.project.repository.StavkaCenovnikaRepository;
 
 @Component
 public class DataLoader implements ApplicationRunner {
@@ -24,12 +30,19 @@ public class DataLoader implements ApplicationRunner {
 	@Autowired
 	private GrupaProizvodaRepository grupaProizvodaRepository;
 	
+	@Autowired CenovnikRepository cenovnikRepository;
+	
+	
+	@Autowired StavkaCenovnikaRepository stavkaCenovnikaRepository;
+	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 
 //		insertIntoJedinicaMere();
 //		insertIntoGrupaProizvoda();
 //		insertIntoProizvod();
+//		insertIntoCenovnik();
+//		insertIntoStavkaCenovnika();
 		
 	}
 
@@ -111,6 +124,24 @@ public class DataLoader implements ApplicationRunner {
 		
 	}
 	
+	private void insertIntoCenovnik() {
+		Cenovnik c = new Cenovnik();
+		c.setDatumVazenja(new Date());
+		
+		cenovnikRepository.save(c);
+		
+		
+	}
+	
+	private void insertIntoStavkaCenovnika() {
+		StavkaCenovnika s = new StavkaCenovnika(1L,250L,proizvodRepository.findById(1L).get(), cenovnikRepository.findById(1L).get());
+		StavkaCenovnika s2 = new StavkaCenovnika(2L,999L,proizvodRepository.findById(3L).get(), cenovnikRepository.findById(1L).get());
+		StavkaCenovnika s3 = new StavkaCenovnika(3L,1799L,proizvodRepository.findById(2L).get(), cenovnikRepository.findById(1L).get());
+		
+		stavkaCenovnikaRepository.save(s);
+		stavkaCenovnikaRepository.save(s2);
+		stavkaCenovnikaRepository.save(s3);		
+	}
 	
 
 }
