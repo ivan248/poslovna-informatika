@@ -14,37 +14,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.basic.project.web.dto.Converter;
-import com.basic.project.web.dto.GrupaProizvodaDTO;
-import com.basic.project.domain.GrupaProizvoda;
-import com.basic.project.service.GrupaProizvodaService;
+import com.basic.project.domain.PDV;
+import com.basic.project.service.PDVService;
 
 @RestController
-@RequestMapping("/api/grupaProizvoda")
-public class GrupaProizvodaController {
-
+@RequestMapping("/api/pdv")
+public class PDVController {
+	
 	@Autowired
-	private GrupaProizvodaService service;
+	private PDVService service;
 	
 	@GetMapping("/getAll")
-	public ResponseEntity<List<GrupaProizvodaDTO>> getAll() {
+	public ResponseEntity<List<PDV>> getAll() {
 		
-		return new ResponseEntity<List<GrupaProizvodaDTO>>(Converter.convertGrupeProizvodaToGrupeProizvodaDTOs(service.getAll()), HttpStatus.OK);
+		return new ResponseEntity<List<PDV>>(service.getAll(), HttpStatus.OK);
 	}
 	
 	// GET ONE
 	@GetMapping("/getOne")
-	public ResponseEntity<GrupaProizvodaDTO> getOne(@RequestParam("id") Long id) {
+	public ResponseEntity<PDV> getOne(@RequestParam("id") Long id) {
 		
-		return new ResponseEntity<GrupaProizvodaDTO>(Converter.convertGrupaProizvodaToGrupaProizvodaDTO(service.getOne(id)), HttpStatus.OK);
+		return new ResponseEntity<PDV>(service.getOne(id), HttpStatus.OK);
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<Boolean> add(@RequestBody GrupaProizvodaDTO g) {
+	public ResponseEntity<Boolean> add(@RequestBody PDV g) {
 		
-		GrupaProizvoda gg = Converter.convertGrupaProizvodaDTOtoGrupaProizvoda(g);
+		
 		System.out.println("pogodio add stavka");
-		if(service.add(gg))
+		if(service.add(g))
 			return new ResponseEntity<Boolean>(true, HttpStatus.CREATED);
 		
 		return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
@@ -53,10 +51,11 @@ public class GrupaProizvodaController {
 	
 	// UPDATE ONE
 	@PutMapping("/update")
-	public ResponseEntity<Boolean> updateGrupaProizvoda(@RequestBody GrupaProizvodaDTO g) {
-		GrupaProizvoda gg = Converter.convertGrupaProizvodaDTOtoGrupaProizvoda(g);
+	public ResponseEntity<Boolean> updateGrupaProizvoda(@RequestBody PDV g) {
 		
-		if(service.update(gg))
+		
+		
+		if(service.update(g))
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		
 		return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
@@ -73,5 +72,5 @@ public class GrupaProizvodaController {
 		
 		return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
 	}
-	
+
 }

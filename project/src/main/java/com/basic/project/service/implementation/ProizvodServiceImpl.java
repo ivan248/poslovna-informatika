@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.basic.project.domain.Cenovnik;
 import com.basic.project.domain.GrupaProizvoda;
 import com.basic.project.domain.JedinicaMere;
 import com.basic.project.domain.Proizvod;
@@ -96,48 +97,20 @@ public class ProizvodServiceImpl implements ProizvodService {
 	public boolean updateProizvod(Proizvod p) {
 
 		try {
-
-			if (jedinicaMereRepository.findOneByNazivJediniceMere(p.getJedinicaMere().getNazivJediniceMere()) != null) {
-				p.setJedinicaMere(
-						jedinicaMereRepository.findOneByNazivJediniceMere(p.getJedinicaMere().getNazivJediniceMere()));
-			} else {
-				JedinicaMere jm = jedinicaMereRepository.findById(p.getJedinicaMere().getId()).get();
-
-				jm.setNazivJediniceMere(p.getJedinicaMere().getNazivJediniceMere());
-				jm.setSkracenica(p.getJedinicaMere().getSkracenica());
-
-				jedinicaMereRepository.save(jm);
-
-				p.setJedinicaMere(
-						jedinicaMereRepository.findOneByNazivJediniceMere(p.getJedinicaMere().getNazivJediniceMere()));
-			}
-
-			if (grupaProizvodaRepository
-					.findOneByNazivGrupeProizvoda(p.getGrupaProizvoda().getNazivGrupeProizvoda()) != null) {
-				p.setGrupaProizvoda(grupaProizvodaRepository
-						.findOneByNazivGrupeProizvoda(p.getGrupaProizvoda().getNazivGrupeProizvoda()));
-			} else {
-				GrupaProizvoda gp = grupaProizvodaRepository.findById(p.getGrupaProizvoda().getId()).get();
-
-				gp.setNazivGrupeProizvoda(p.getGrupaProizvoda().getNazivGrupeProizvoda());
-
-				grupaProizvodaRepository.save(gp);
-
-				p.setGrupaProizvoda(grupaProizvodaRepository
-						.findOneByNazivGrupeProizvoda(p.getGrupaProizvoda().getNazivGrupeProizvoda()));
-			}
-
-			System.out.println("Updated object: " + p);
+			Proizvod c = proizvodRepository.findById(p.getId()).get();
+			c.setNazivProizvoda(p.getNazivProizvoda());
+			c.setVrstaProizvoda(p.getVrstaProizvoda());
+			c.setGrupaProizvoda(p.getGrupaProizvoda());
+			c.setJedinicaMere(p.getJedinicaMere());
+			proizvodRepository.saveAndFlush(c);
 			
-			proizvodRepository.save(p);
 			return true;
-		} catch (Exception e) {
-			System.out.println("***********************ERROR IN UPDATE PROIZVOD***********************");
+		}catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("***********************ERROR IN UPDATE PROIZVOD***********************");
+			return false;
 		}
 
-		return false;
+	
 	}
 
 	@Override

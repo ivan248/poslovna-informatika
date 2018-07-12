@@ -4,15 +4,23 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "GrupaProizvoda")
 @Table(name = "grupa_proizvoda")
 public class GrupaProizvoda implements Serializable {
+	
 
 	/**
 	 * 
@@ -27,7 +35,21 @@ public class GrupaProizvoda implements Serializable {
     @Column(unique = true)
     private String nazivGrupeProizvoda;
     
-    public GrupaProizvoda() {
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "pdv_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private PDV pdv;
+    
+    public PDV getPdv() {
+		return pdv;
+	}
+
+	public void setPdv(PDV pdv) {
+		this.pdv = pdv;
+	}
+
+	public GrupaProizvoda() {
     	
     }
 

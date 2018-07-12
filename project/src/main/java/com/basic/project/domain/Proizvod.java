@@ -1,6 +1,7 @@
 package com.basic.project.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -40,20 +42,37 @@ public class Proizvod implements Serializable {
     private String vrstaProizvoda;
     
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "jedinica_mere_id", nullable = false)
+    @JoinColumn(name = "jedinica_mere_id", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private JedinicaMere jedinicaMere;
     
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "grupa_proizvoda_id", nullable = false)
+    @JoinColumn(name = "grupa_proizvoda_id", nullable = true) //da ne pravi problem kada se obrise grupa proizvoda
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private GrupaProizvoda grupaProizvoda;
     
+    @OneToMany(mappedBy="proizvod", orphanRemoval=true)
+    private List<StavkaCenovnika> stavke;
+    
     public Proizvod() {
     	
     }
+    
+    
+
+	public List<StavkaCenovnika> getStavke() {
+		return stavke;
+	}
+
+
+
+	public void setStavke(List<StavkaCenovnika> stavke) {
+		this.stavke = stavke;
+	}
+
+
 
 	public Long getId() {
 		return id;

@@ -12,11 +12,13 @@ import org.springframework.stereotype.Component;
 import com.basic.project.domain.Cenovnik;
 import com.basic.project.domain.GrupaProizvoda;
 import com.basic.project.domain.JedinicaMere;
+import com.basic.project.domain.PDV;
 import com.basic.project.domain.Proizvod;
 import com.basic.project.domain.StavkaCenovnika;
 import com.basic.project.repository.CenovnikRepository;
 import com.basic.project.repository.GrupaProizvodaRepository;
 import com.basic.project.repository.JedinicaMereRepository;
+import com.basic.project.repository.PDVRepository;
 import com.basic.project.repository.ProizvodRepository;
 import com.basic.project.repository.StavkaCenovnikaRepository;
 
@@ -32,39 +34,61 @@ public class DataLoader implements ApplicationRunner {
 	@Autowired
 	private GrupaProizvodaRepository grupaProizvodaRepository;
 	
-	@Autowired CenovnikRepository cenovnikRepository;
+	@Autowired 
+	private CenovnikRepository cenovnikRepository;
 	
 	
-	@Autowired StavkaCenovnikaRepository stavkaCenovnikaRepository;
+	@Autowired 
+	private StavkaCenovnikaRepository stavkaCenovnikaRepository;
+	
+	@Autowired 
+	private PDVRepository pdvRepository;
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-
+//		insertIntoPDV();
 //		insertIntoJedinicaMere();
 //		insertIntoGrupaProizvoda();
 //		insertIntoProizvod();
 //		insertIntoCenovnik();
 //		insertIntoStavkaCenovnika();
 	}
+	
+	private void insertIntoPDV() {
+		PDV p = new PDV();
+		p.setNaziv("Zivotinje");
+		
+		PDV p2 = new PDV();
+		p2.setNaziv("Gradjevinski materijal");
+		
+		PDV p3 = new PDV();
+		p3.setNaziv("Proizvodi od drveta");
+		
+		pdvRepository.save(p);
+		pdvRepository.save(p2);
+		pdvRepository.save(p3);
+	}	
 
 	private void insertIntoGrupaProizvoda() {
 
 		GrupaProizvoda gp = new GrupaProizvoda();
 		
 		gp.setNazivGrupeProizvoda("Psi");
+		gp.setPdv(pdvRepository.getOne(1L));
 		
 		grupaProizvodaRepository.save(gp);
 		
 		GrupaProizvoda gp1 = new GrupaProizvoda();
 		
 		gp1.setNazivGrupeProizvoda("Cigle");
+		gp1.setPdv(pdvRepository.getOne(2L));
 		
 		grupaProizvodaRepository.save(gp1);
 				
 		GrupaProizvoda gp2 = new GrupaProizvoda();
 		
 		gp2.setNazivGrupeProizvoda("Daske");
-		
+		gp2.setPdv(pdvRepository.getOne(3L));
 		grupaProizvodaRepository.save(gp2);
 		
 	}

@@ -6,6 +6,7 @@ import java.util.List;
 import com.basic.project.domain.Cenovnik;
 import com.basic.project.domain.GrupaProizvoda;
 import com.basic.project.domain.JedinicaMere;
+import com.basic.project.domain.PDV;
 import com.basic.project.domain.Proizvod;
 import com.basic.project.domain.StavkaCenovnika;
 
@@ -157,4 +158,49 @@ public class Converter {
 		
 		return stavkaDTO;
 	}
+	
+	//===============================================Grupa proizvoda =====================================================
+	public static List<GrupaProizvodaDTO> convertGrupeProizvodaToGrupeProizvodaDTOs(List<GrupaProizvoda> listGrupaProizvoda) {
+
+		List<GrupaProizvodaDTO> listGrupaProizvodaDTO = new ArrayList<GrupaProizvodaDTO>();
+		
+		for(GrupaProizvoda s : listGrupaProizvoda)
+		{
+			convertGrupaProizvodaToGrupaProizvodaDTO(s);
+			listGrupaProizvodaDTO.add(convertGrupaProizvodaToGrupaProizvodaDTO(s));
+		}
+
+		return listGrupaProizvodaDTO;
+	}
+	
+	public static GrupaProizvoda convertGrupaProizvodaDTOtoGrupaProizvoda(GrupaProizvodaDTO grupaProizvodaDTO) {
+		
+		GrupaProizvoda g = new GrupaProizvoda();
+		
+		if(grupaProizvodaDTO.getId() != null)
+			g.setId(grupaProizvodaDTO.getId());
+		
+		g.setNazivGrupeProizvoda(grupaProizvodaDTO.getNazivGrupeProizvoda());
+		g.setPdv(grupaProizvodaDTO.getPdv());
+		
+		
+		return g;
+	}
+	
+	public static GrupaProizvodaDTO convertGrupaProizvodaToGrupaProizvodaDTO(GrupaProizvoda grupaProizvoda) {
+		
+		GrupaProizvodaDTO g = new GrupaProizvodaDTO();
+		
+		PDV p = new PDV();
+		p.setId(grupaProizvoda.getPdv().getId());
+		p.setNaziv(grupaProizvoda.getPdv().getNaziv());
+		//p.setStopa(grupaProizvoda.getPdv().getStopa());
+
+		
+		g.setId(grupaProizvoda.getId());
+		g.setNazivGrupeProizvoda(grupaProizvoda.getNazivGrupeProizvoda());
+		g.setPdv(p);
+		return g;
+	}
+	
 }
