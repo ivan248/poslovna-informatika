@@ -31,8 +31,14 @@ public class StavkaCenovnikaServiceImpl implements StavkaCenovnikaService {
 
 	@Override
 	public StavkaCenovnika getStavkaCenovnika(Long id) {
-		// TODO Auto-generated method stub
-		return repository.findById(id).get();
+	
+		try {
+			return repository.findById(id).get();
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

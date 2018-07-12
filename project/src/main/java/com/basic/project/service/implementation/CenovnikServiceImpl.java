@@ -32,7 +32,13 @@ public class CenovnikServiceImpl implements CenovnikService {
 
 	@Override
 	public Cenovnik getOne(Long id) {
-		return repository.findById(id).get();
+		try {
+			return repository.findById(id).get();
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

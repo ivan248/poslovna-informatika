@@ -33,7 +33,14 @@ public class PDVServiceImpl implements PDVService{
 
 	@Override
 	public PDV getOne(Long id) {
-		return repository.findById(id).get();
+		
+		try {
+			return repository.findById(id).get();
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

@@ -14,34 +14,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.basic.project.domain.JedinicaMere;
-import com.basic.project.service.JedinicaMereService;
+import com.basic.project.domain.Narudzbenica;
+import com.basic.project.service.NarudzbenicaService;
+import com.basic.project.web.dto.Converter;
+import com.basic.project.web.dto.NarudzbenicaDTO;
 
 @RestController
-@RequestMapping("/api/jedinicaMere")
-public class JedinicaMereController {
-	
+@RequestMapping("/api/narudzbenica")
+public class NarudzbenicaController {
+
 	@Autowired
-	private JedinicaMereService jedinicaMereService;
+	private NarudzbenicaService narudzbenicaService;
 	
 	@GetMapping("/getAll")
-	public ResponseEntity<List<JedinicaMere>> getAll() {
+	public ResponseEntity<List<NarudzbenicaDTO>> getAll() {
 		
-		return new ResponseEntity<List<JedinicaMere>>(jedinicaMereService.getAll(), HttpStatus.OK);
+		return new ResponseEntity<List<NarudzbenicaDTO>>(Converter.convertNarudzbenicasToNarudzbenicaDTOs(narudzbenicaService.getAll()), HttpStatus.OK);
 	}
 	
 	// GET ONE
 	@GetMapping("/getOne")
-	public ResponseEntity<JedinicaMere> getOne(@RequestParam("id") Long id) {
+	public ResponseEntity<Narudzbenica> getOne(@RequestParam("id") Long id) {
 		
-		return new ResponseEntity<JedinicaMere>(jedinicaMereService.getOne(id), HttpStatus.OK);
+		return new ResponseEntity<Narudzbenica>(narudzbenicaService.getOne(id), HttpStatus.OK);
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<Boolean> add(@RequestBody JedinicaMere jm) {
+	public ResponseEntity<Boolean> add(@RequestBody Narudzbenica n) {
 		
-		System.out.println("Pogodio add jedinicaMere!");
-		if(jedinicaMereService.add(jm))
+		System.out.println("Pogodio add narudzbenica!");
+		if(narudzbenicaService.add(n))
 			return new ResponseEntity<Boolean>(true, HttpStatus.CREATED);
 		
 		return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
@@ -50,9 +52,9 @@ public class JedinicaMereController {
 	
 	// UPDATE ONE
 	@PutMapping("/update")
-	public ResponseEntity<Boolean> updateGrupaProizvoda(@RequestBody JedinicaMere jm) {
+	public ResponseEntity<Boolean> updateGrupaProizvoda(@RequestBody Narudzbenica n) {
 		
-		if(jedinicaMereService.update(jm))
+		if(narudzbenicaService.update(n))
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		
 		return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
@@ -64,7 +66,7 @@ public class JedinicaMereController {
 		
 		System.out.println("Pogodio delete");
 		
-		if(jedinicaMereService.delete(id))
+		if(narudzbenicaService.delete(id))
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		
 		return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);

@@ -6,7 +6,9 @@ import java.util.List;
 import com.basic.project.domain.Cenovnik;
 import com.basic.project.domain.GrupaProizvoda;
 import com.basic.project.domain.JedinicaMere;
+import com.basic.project.domain.Narudzbenica;
 import com.basic.project.domain.PDV;
+import com.basic.project.domain.PoslovniPartner;
 import com.basic.project.domain.Proizvod;
 import com.basic.project.domain.StavkaCenovnika;
 
@@ -201,6 +203,40 @@ public class Converter {
 		g.setNazivGrupeProizvoda(grupaProizvoda.getNazivGrupeProizvoda());
 		g.setPdv(p);
 		return g;
+	}
+	
+	public static List<NarudzbenicaDTO> convertNarudzbenicasToNarudzbenicaDTOs(List<Narudzbenica> listaNarudzbenica) {
+		
+		List<NarudzbenicaDTO> listaNarudzbenicaDTO = new ArrayList<NarudzbenicaDTO>();
+		
+		for(Narudzbenica n:listaNarudzbenica)
+		{
+			listaNarudzbenicaDTO.add(convertNarudzbenicaToNarudzbenicaDTO(n));
+		}
+		
+		return listaNarudzbenicaDTO;
+	}
+	
+	public static NarudzbenicaDTO convertNarudzbenicaToNarudzbenicaDTO(Narudzbenica narudzbenica) {
+
+		NarudzbenicaDTO narudzbenicaDTO = new NarudzbenicaDTO();
+		
+		narudzbenicaDTO.setId(narudzbenica.getId());
+		narudzbenicaDTO.setListaStavki(narudzbenica.getListaStavki());
+		
+		PoslovniPartner p = new PoslovniPartner();
+		
+		p.setAdresaPreduzeca(narudzbenica.getPoslovniPartner().getAdresaPreduzeca());
+		p.setEmailPreduzeca(narudzbenica.getPoslovniPartner().getEmailPreduzeca());
+		p.setId(narudzbenica.getPoslovniPartner().getId());
+		p.setNazivPreduzeca(narudzbenica.getPoslovniPartner().getNazivPreduzeca());
+		p.setPibPreduzeca(narudzbenica.getPoslovniPartner().getPibPreduzeca());
+		p.setPoslovniPartnerVrsta(narudzbenica.getPoslovniPartner().getPoslovniPartnerVrsta());
+		p.setTelefonPreduzeca(narudzbenica.getPoslovniPartner().getTelefonPreduzeca());
+		
+		narudzbenicaDTO.setPoslovniPartner(p);
+		
+		return narudzbenicaDTO;
 	}
 	
 }

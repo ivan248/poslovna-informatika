@@ -3,26 +3,36 @@ package com.basic.project.config;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import com.basic.project.domain.Adresa;
 import com.basic.project.domain.Cenovnik;
 import com.basic.project.domain.GrupaProizvoda;
 import com.basic.project.domain.JedinicaMere;
+import com.basic.project.domain.Narudzbenica;
 import com.basic.project.domain.PDV;
+import com.basic.project.domain.PoslovniPartner;
+import com.basic.project.domain.PoslovniPartnerVrsta;
 import com.basic.project.domain.Proizvod;
 import com.basic.project.domain.StavkaCenovnika;
+import com.basic.project.repository.AdresaRepository;
 import com.basic.project.repository.CenovnikRepository;
 import com.basic.project.repository.GrupaProizvodaRepository;
 import com.basic.project.repository.JedinicaMereRepository;
+import com.basic.project.repository.NarudzbenicaRepository;
 import com.basic.project.repository.PDVRepository;
+import com.basic.project.repository.PoslovniPartnerRepository;
 import com.basic.project.repository.ProizvodRepository;
 import com.basic.project.repository.StavkaCenovnikaRepository;
 
 @Component
+@SuppressWarnings("unused")
 public class DataLoader implements ApplicationRunner {
 
 	@Autowired
@@ -37,23 +47,101 @@ public class DataLoader implements ApplicationRunner {
 	@Autowired 
 	private CenovnikRepository cenovnikRepository;
 	
-	
 	@Autowired 
 	private StavkaCenovnikaRepository stavkaCenovnikaRepository;
 	
 	@Autowired 
 	private PDVRepository pdvRepository;
 	
+	@Autowired
+	private PoslovniPartnerRepository poslovniPartnerRepository;
+	
+	@Autowired
+	private NarudzbenicaRepository narudzbenicaRepository;
+	
+	@Autowired
+	private AdresaRepository adresaRepository;
+	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-//		insertIntoPDV();
-//		insertIntoJedinicaMere();
-//		insertIntoGrupaProizvoda();
-//		insertIntoProizvod();
-//		insertIntoCenovnik();
-//		insertIntoStavkaCenovnika();
+		insertIntoPDV();
+		insertIntoJedinicaMere();
+		insertIntoGrupaProizvoda();
+		insertIntoProizvod();
+		insertIntoCenovnik();
+		insertIntoStavkaCenovnika();
+		insertIntoAdresa();
+		insertIntoPoslovniPartner();
+		insertIntoNarudzbenica();
 	}
 	
+	private void insertIntoAdresa() {
+
+		Adresa a = new Adresa();
+		
+		a.setBrojUlice(75);
+		a.setGrad("Smederevo");
+		a.setPostanskiBroj(11300);
+		a.setUlica("Kosovska");
+		
+		adresaRepository.save(a);
+		
+		Adresa a1 = new Adresa();
+		
+		
+		a1.setBrojUlice(30);
+		a1.setGrad("Zrenjanin");
+		a1.setPostanskiBroj(21000);
+		a1.setUlica("Fikina ulica snova");
+		
+		adresaRepository.save(a1);
+		
+	}
+
+	private void insertIntoPoslovniPartner() {
+		
+		PoslovniPartner p = new PoslovniPartner();
+		
+		p.setAdresaPreduzeca(adresaRepository.getOne(1L));
+		p.setEmailPreduzeca("radnja@email.com");
+		p.setNazivPreduzeca("Preduzece 1");
+		p.setPibPreduzeca(1234);
+		p.setTelefonPreduzeca(026555555);
+		p.setPoslovniPartnerVrsta(PoslovniPartnerVrsta.FIZICKO_LICE);
+		
+		poslovniPartnerRepository.save(p);
+		
+	}
+
+	private void insertIntoNarudzbenica() {
+		
+		Narudzbenica n = new Narudzbenica();
+		
+		n.setPoslovniPartner(poslovniPartnerRepository.getOne(1L));
+		
+		Map<Proizvod, Integer> listaStavki = new HashMap<Proizvod, Integer>();
+		
+		listaStavki.put(proizvodRepository.getOne(1L), 5);
+		listaStavki.put(proizvodRepository.getOne(2L), 20);
+		
+		n.setListaStavki(listaStavki);
+		
+		narudzbenicaRepository.save(n);
+		
+		Narudzbenica n1 = new Narudzbenica();
+		
+		n1.setPoslovniPartner(poslovniPartnerRepository.getOne(1L));
+		
+		Map<Proizvod, Integer> listaStavki1 = new HashMap<Proizvod, Integer>();
+		
+		listaStavki1.put(proizvodRepository.getOne(1L), 10);
+		listaStavki1.put(proizvodRepository.getOne(2L), 4);
+		
+		n1.setListaStavki(listaStavki1);
+		
+		narudzbenicaRepository.save(n1);
+	}
+
 	private void insertIntoPDV() {
 		PDV p = new PDV();
 		p.setNaziv("Zivotinje");

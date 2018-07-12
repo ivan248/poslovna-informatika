@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.basic.project.domain.Cenovnik;
 import com.basic.project.domain.GrupaProizvoda;
 import com.basic.project.domain.JedinicaMere;
 import com.basic.project.domain.Proizvod;
@@ -73,9 +72,10 @@ public class ProizvodServiceImpl implements ProizvodService {
 			System.out.println("***********************ERROR IN ADD PROIZVOD***********************");
 			e.printStackTrace();
 			System.out.println("***********************ERROR IN ADD PROIZVOD***********************");
+			return false;
 		}
 
-		return false;
+		
 	}
 
 	@Override
@@ -87,9 +87,10 @@ public class ProizvodServiceImpl implements ProizvodService {
 			System.out.println("***********************ERROR IN GET ONE PROIZVOD***********************");
 			e.printStackTrace();
 			System.out.println("***********************ERROR IN GET ONE PROIZVOD***********************");
+			return null;
 		}
 
-		return null;
+		
 
 	}
 
@@ -126,10 +127,11 @@ public class ProizvodServiceImpl implements ProizvodService {
 			e.printStackTrace();
 			System.out.println("***********************ERROR IN DELETE PROIZVOD***********************");
 
+			return false;
 		}
 		
 		
-		return false;
+		
 	}
 
 }

@@ -6,13 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.basic.project.domain.GrupaProizvoda;
+import com.basic.project.domain.Proizvod;
 import com.basic.project.repository.GrupaProizvodaRepository;
+import com.basic.project.repository.ProizvodRepository;
 import com.basic.project.service.GrupaProizvodaService;
 
 @Service
 public class GrupaProizvodaServiceImpl implements GrupaProizvodaService {
+	
 	@Autowired
 	private GrupaProizvodaRepository repository;
+	
+	@Autowired
+	private ProizvodRepository proizvodRepository;
 	
 	@Override
 	public List<GrupaProizvoda> getAll() {
@@ -32,7 +38,13 @@ public class GrupaProizvodaServiceImpl implements GrupaProizvodaService {
 
 	@Override
 	public GrupaProizvoda getOne(Long id) {
-		return repository.findById(id).get();
+		try {
+			return repository.findById(id).get();
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
@@ -49,6 +61,18 @@ public class GrupaProizvodaServiceImpl implements GrupaProizvodaService {
 	@Override
 	public boolean delete(Long id) {
 		try {
+			
+			for(Proizvod p:proizvodRepository.findAll())
+			{
+				if(p.getGrupaProizvoda().getId() == id)
+				{
+					System.out.println("************************** WARNING **************************\n\n");
+					System.out.println("Ne mozete obrisati ovu grupu proizvoda. Postoji proizvod koji je sadrzi!\n\n");
+					System.out.println("************************** WARNING **************************");
+					return false;
+				}
+			}
+			
 			repository.deleteById(id);
 			return true;
 		}catch (Exception e) {
