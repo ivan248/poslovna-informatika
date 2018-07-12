@@ -1,5 +1,7 @@
 package com.basic.project.config;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +45,6 @@ public class DataLoader implements ApplicationRunner {
 //		insertIntoProizvod();
 //		insertIntoCenovnik();
 //		insertIntoStavkaCenovnika();
-		
 	}
 
 	private void insertIntoGrupaProizvoda() {
@@ -126,10 +127,27 @@ public class DataLoader implements ApplicationRunner {
 	
 	private void insertIntoCenovnik() {
 		Cenovnik c = new Cenovnik();
-		c.setDatumVazenja(new Date());
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		Date d = null;
+		try {
+			d = sdf.parse(sdf.format(new Date()));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		c.setDatumVazenja(d);
 		
 		cenovnikRepository.save(c);
 		
+		Cenovnik cc = new Cenovnik();
+		
+		try {
+			d = sdf.parse("13-09-2018");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		cc.setDatumVazenja(d);
+		
+		cenovnikRepository.save(cc);
 		
 	}
 	

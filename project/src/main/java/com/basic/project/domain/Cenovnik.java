@@ -2,22 +2,18 @@ package com.basic.project.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity(name = "Cenovnik")
 @Table(name = "Cenovnik")
 public class Cenovnik implements Serializable {
@@ -34,9 +30,21 @@ public class Cenovnik implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(unique=true)
+    public List<StavkaCenovnika> getStavke() {
+		return stavke;
+	}
+
+	public void setStavke(List<StavkaCenovnika> stavke) {
+		this.stavke = stavke;
+	}
+
+
+	@Column(unique=true)
     @NotNull
     private Date datumVazenja;
+    
+    @OneToMany(mappedBy="cenovnik", orphanRemoval=true)
+    private List<StavkaCenovnika> stavke;
     
     public Long getId() {
 		return id;

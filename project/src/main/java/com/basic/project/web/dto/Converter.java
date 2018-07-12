@@ -86,9 +86,19 @@ public class Converter {
 			Proizvod p = new Proizvod();
 			p.setId(s.getProizvod().getId());
 			p.setNazivProizvoda(s.getProizvod().getNazivProizvoda());
-			p.setJedinicaMere(s.getProizvod().getJedinicaMere());
 			p.setVrstaProizvoda(s.getProizvod().getVrstaProizvoda());
-			p.setGrupaProizvoda(s.getProizvod().getGrupaProizvoda());
+			
+				JedinicaMere m = new JedinicaMere();
+				m.setId(s.getProizvod().getJedinicaMere().getId());
+				m.setNazivJediniceMere(s.getProizvod().getJedinicaMere().getNazivJediniceMere());
+				m.setSkracenica(s.getProizvod().getJedinicaMere().getSkracenica());
+			p.setJedinicaMere(m);
+			
+				GrupaProizvoda g = new GrupaProizvoda();
+				g.setId(s.getProizvod().getGrupaProizvoda().getId());
+				g.setNazivGrupeProizvoda(s.getProizvod().getGrupaProizvoda().getNazivGrupeProizvoda());
+			p.setGrupaProizvoda(g);
+				
 
 
 			Cenovnik c = new Cenovnik();
@@ -121,22 +131,29 @@ public class Converter {
 		
 		StavkaCenovnikaDTO stavkaDTO = new StavkaCenovnikaDTO();
 		
-		stavkaDTO.setId(stavkaCenovnika.getId());
+		
 		
 		Proizvod p = new Proizvod();
 		p.setId(stavkaCenovnika.getProizvod().getId());
 		p.setNazivProizvoda(stavkaCenovnika.getProizvod().getNazivProizvoda());
 		p.setVrstaProizvoda(stavkaCenovnika.getProizvod().getVrstaProizvoda());
 		p.setGrupaProizvoda(stavkaCenovnika.getProizvod().getGrupaProizvoda());
+			p.getGrupaProizvoda().setId(stavkaCenovnika.getProizvod().getGrupaProizvoda().getId());
+			p.getGrupaProizvoda().setNazivGrupeProizvoda(stavkaCenovnika.getProizvod().getGrupaProizvoda().getNazivGrupeProizvoda());
 		p.setJedinicaMere(stavkaCenovnika.getProizvod().getJedinicaMere());
+			p.getJedinicaMere().setId(stavkaCenovnika.getProizvod().getJedinicaMere().getId());
+			p.getJedinicaMere().setNazivJediniceMere(stavkaCenovnika.getProizvod().getJedinicaMere().getNazivJediniceMere());
+			p.getJedinicaMere().setSkracenica(stavkaCenovnika.getProizvod().getJedinicaMere().getSkracenica());
 		
 		Cenovnik c = new Cenovnik();
 		c.setDatumVazenja(stavkaCenovnika.getCenovnik().getDatumVazenja());
 		c.setId(stavkaCenovnika.getCenovnik().getId());
 
-		stavkaDTO.setProizvod(p);
+		
+		stavkaDTO.setId(stavkaCenovnika.getId());
 		stavkaDTO.setCena(stavkaCenovnika.getCena());
 		stavkaDTO.setCenovnik(c);
+		stavkaDTO.setProizvod(p);
 		
 		return stavkaDTO;
 	}
