@@ -44,7 +44,7 @@ public class Narudzbenica implements Serializable {
     @CollectionTable(name="ProizvodKolicina")
     @MapKeyJoinColumn(name="proizvod_id")
     @Column(name="kolicina")
-    Map<Proizvod, Integer > listaStavki;
+    Map<Proizvod, Integer> listaStavki;
     
     public Narudzbenica() {
     	

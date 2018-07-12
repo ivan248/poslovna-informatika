@@ -18,6 +18,7 @@ import com.basic.project.domain.Narudzbenica;
 import com.basic.project.service.NarudzbenicaService;
 import com.basic.project.web.dto.Converter;
 import com.basic.project.web.dto.NarudzbenicaDTO;
+import com.basic.project.web.dto.NarudzbenicaReceiverDTO;
 
 @RestController
 @RequestMapping("/api/narudzbenica")
@@ -39,11 +40,36 @@ public class NarudzbenicaController {
 		return new ResponseEntity<Narudzbenica>(narudzbenicaService.getOne(id), HttpStatus.OK);
 	}
 	
+	/* FORMAT FOR JSON FOR ADDING A NARUDZBENICA
+	 *     {
+        "poslovniPartner": {
+            "id": 1,
+            "nazivPreduzeca": "Preduzece 1",
+            "emailPreduzeca": "radnja@email.com",
+            "pibPreduzeca": 1234,
+            "telefonPreduzeca": 5954413,
+            "poslovniPartnerVrsta": "FIZICKO_LICE",
+            "adresaPreduzeca": {
+                "id": 1,
+                "ulica": "Kosovska",
+                "brojUlice": 75,
+                "grad": "Smederevo",
+                "postanskiBroj": 11300
+            }
+        },
+        "listaStavki": {
+            "1": 3,
+            "2": 21
+        }
+    }
+	 */
+	
+	// ADD ONE
 	@PostMapping("/add")
-	public ResponseEntity<Boolean> add(@RequestBody Narudzbenica n) {
+	public ResponseEntity<Boolean> add(@RequestBody NarudzbenicaReceiverDTO narudzbenicaDTO) {
 		
-		System.out.println("Pogodio add narudzbenica!");
-		if(narudzbenicaService.add(n))
+		System.out.println("Pogodio add narudzbenica!" + narudzbenicaDTO);
+		if(narudzbenicaService.add(Converter.convertNarudzbenicaReceiverDTOToNarudzbenica(narudzbenicaDTO), narudzbenicaDTO.getListaStavki()))
 			return new ResponseEntity<Boolean>(true, HttpStatus.CREATED);
 		
 		return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
@@ -52,9 +78,10 @@ public class NarudzbenicaController {
 	
 	// UPDATE ONE
 	@PutMapping("/update")
-	public ResponseEntity<Boolean> updateGrupaProizvoda(@RequestBody Narudzbenica n) {
+	public ResponseEntity<Boolean> updateGrupaProizvoda(@RequestBody NarudzbenicaReceiverDTO narudzbenicaDTO) {
 		
-		if(narudzbenicaService.update(n))
+		System.out.println("Pogodio add narudzbenica!" + narudzbenicaDTO);
+		if(narudzbenicaService.update(Converter.convertNarudzbenicaReceiverDTOToNarudzbenica(narudzbenicaDTO), narudzbenicaDTO.getListaStavki()))
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		
 		return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
