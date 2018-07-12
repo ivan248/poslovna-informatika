@@ -33,8 +33,6 @@ public class StopaPDV  implements Serializable {
 	@Column
 	private Date datumVazenja;
 	
-	
-
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pdv_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

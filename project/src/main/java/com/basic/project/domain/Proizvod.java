@@ -42,7 +42,7 @@ public class Proizvod implements Serializable {
     private String vrstaProizvoda;
     
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "jedinica_mere_id", nullable = true)
+    @JoinColumn(name = "jedinica_mere_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private JedinicaMere jedinicaMere;
