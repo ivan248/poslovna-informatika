@@ -10,11 +10,11 @@ public interface StavkaCenovnikaService {
 
 	List<StavkaCenovnika> getAllStavkeCenovnika();
 
-	boolean addStavkaCenovnika(StavkaCenovnika p);
+	boolean addStavkaCenovnika(StavkaCenovnika g);
 
-	StavkaCenovnika getStavkaCenovnika(Long proizvodId);
+	StavkaCenovnika getStavkaCenovnika(Long id);
 
-	boolean updateStavkaCenovnika(StavkaCenovnika p);
+	boolean updateStavkaCenovnika(StavkaCenovnika g);
 
-	boolean deleteStavkaCenovnika(Long proizvodId);
+	boolean deleteStavkaCenovnika(Long id);
 }

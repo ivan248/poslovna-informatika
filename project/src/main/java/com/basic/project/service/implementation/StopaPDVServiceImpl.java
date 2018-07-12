@@ -5,22 +5,22 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.basic.project.domain.Cenovnik;
-import com.basic.project.repository.CenovnikRepository;
-import com.basic.project.service.CenovnikService;
+import com.basic.project.domain.StopaPDV;
+import com.basic.project.repository.StopaPDVRepository;
+import com.basic.project.service.StopaPDVService;
 
 @Service
-public class CenovnikServiceImpl implements CenovnikService {
+public class StopaPDVServiceImpl implements StopaPDVService{
 	@Autowired
-	private CenovnikRepository repository;
+	private StopaPDVRepository repository;
 
 	@Override
-	public List<Cenovnik> getAll() {
+	public List<StopaPDV> getAll() {
 		return repository.findAll();
 	}
 
 	@Override
-	public boolean add(Cenovnik p) {
+	public boolean add(StopaPDV p) {
 		try {
 			repository.save(p);	
 			return true;
@@ -31,17 +31,21 @@ public class CenovnikServiceImpl implements CenovnikService {
 	}
 
 	@Override
-	public Cenovnik getOne(Long id) {
-		return repository.findById(id).get();
+	public StopaPDV getOne(Long id) {
+		try {
+			return repository.findById(id).get();
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
-	public boolean update(Cenovnik p) {
+	public boolean update(StopaPDV p) {
 		try {
-			Cenovnik c = repository.findById(p.getId()).get();
-			c.setDatumVazenja(p.getDatumVazenja());
-			repository.saveAndFlush(c);
 			
+			repository.save(p);
 			return true;
 		}catch (Exception e) {
 			e.printStackTrace();

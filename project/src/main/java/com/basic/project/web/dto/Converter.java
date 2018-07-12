@@ -11,6 +11,7 @@ import com.basic.project.domain.PDV;
 import com.basic.project.domain.PoslovniPartner;
 import com.basic.project.domain.Proizvod;
 import com.basic.project.domain.StavkaCenovnika;
+import com.basic.project.domain.StopaPDV;
 
 public class Converter {
 
@@ -237,6 +238,52 @@ public class Converter {
 		narudzbenicaDTO.setPoslovniPartner(p);
 		
 		return narudzbenicaDTO;
+	}
+	
+	//===============================================Stopa pdv=====================================================
+	
+	public static List<StopaPDVDTO> convertStopePDVToStopePDVDTOs(List<StopaPDV> listStopaPDV) {
+
+		List<StopaPDVDTO> listStopaPDVDTO = new ArrayList<StopaPDVDTO>();
+		
+		for(StopaPDV s : listStopaPDV)
+		{
+			listStopaPDVDTO.add(convertStopaPDVToStopaPDVDTO(s));
+		}
+
+		return listStopaPDVDTO;
+	}
+	
+	public static StopaPDV convertStopaPDVDTOtoStopaPDV(StopaPDVDTO stopaPDVDTO) {
+		
+		StopaPDV s = new StopaPDV();
+		
+		if(stopaPDVDTO.getId() != null)
+			s.setId(stopaPDVDTO.getId());
+		
+		s.setStopa(stopaPDVDTO.getStopa());
+		s.setPdv(stopaPDVDTO.getPdv());
+		s.setDatumVazenja(stopaPDVDTO.getDatumVazenja());
+		
+		
+		return s;
+	}
+	
+	public static StopaPDVDTO convertStopaPDVToStopaPDVDTO(StopaPDV stopaPDV) {
+		
+		StopaPDVDTO s = new StopaPDVDTO();
+		
+		PDV p = new PDV();
+		p.setId(stopaPDV.getPdv().getId());
+		p.setNaziv(stopaPDV.getPdv().getNaziv());
+		p.setStopa(stopaPDV.getPdv().getStopa());
+
+		
+		s.setId(stopaPDV.getId());
+		s.setStopa(stopaPDV.getStopa());
+		s.setPdv(p);
+		s.setDatumVazenja(stopaPDV.getDatumVazenja());
+		return s;
 	}
 	
 }

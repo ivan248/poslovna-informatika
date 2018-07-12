@@ -21,6 +21,7 @@ import com.basic.project.domain.PoslovniPartner;
 import com.basic.project.domain.PoslovniPartnerVrsta;
 import com.basic.project.domain.Proizvod;
 import com.basic.project.domain.StavkaCenovnika;
+import com.basic.project.domain.StopaPDV;
 import com.basic.project.repository.AdresaRepository;
 import com.basic.project.repository.CenovnikRepository;
 import com.basic.project.repository.GrupaProizvodaRepository;
@@ -30,6 +31,7 @@ import com.basic.project.repository.PDVRepository;
 import com.basic.project.repository.PoslovniPartnerRepository;
 import com.basic.project.repository.ProizvodRepository;
 import com.basic.project.repository.StavkaCenovnikaRepository;
+import com.basic.project.repository.StopaPDVRepository;
 
 @Component
 @SuppressWarnings("unused")
@@ -62,17 +64,21 @@ public class DataLoader implements ApplicationRunner {
 	@Autowired
 	private AdresaRepository adresaRepository;
 	
+	@Autowired
+	private StopaPDVRepository stopaPDVRepository;
+	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		insertIntoPDV();
-		insertIntoJedinicaMere();
-		insertIntoGrupaProizvoda();
-		insertIntoProizvod();
-		insertIntoCenovnik();
-		insertIntoStavkaCenovnika();
-		insertIntoAdresa();
-		insertIntoPoslovniPartner();
-		insertIntoNarudzbenica();
+//		insertIntoPDV();
+//		insertIntoJedinicaMere();
+//		insertIntoGrupaProizvoda();
+//		insertIntoProizvod();
+//		insertIntoCenovnik();
+//		insertIntoStavkaCenovnika();
+//		insertIntoAdresa();
+//		insertIntoPoslovniPartner();
+//		insertIntoNarudzbenica();
+//		insertIntoStopaPDV();
 	}
 	
 	private void insertIntoAdresa() {
@@ -271,6 +277,46 @@ public class DataLoader implements ApplicationRunner {
 		stavkaCenovnikaRepository.save(s);
 		stavkaCenovnikaRepository.save(s2);
 		stavkaCenovnikaRepository.save(s3);		
+	}
+	
+	private void insertIntoStopaPDV() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		Date d = null;
+		
+		StopaPDV s = new StopaPDV();
+		s.setId(1L);
+		s.setStopa((float)0.1);
+		s.setPdv(pdvRepository.getOne(1L));
+		try {
+			s.setDatumVazenja(d = sdf.parse("13-09-2018"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		StopaPDV s1 = new StopaPDV();
+		s1.setId(2L);
+		s1.setStopa((float)0.2);
+		s1.setPdv(pdvRepository.getOne(2L));
+		try {
+			s1.setDatumVazenja(d = sdf.parse("21-12-2018"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		StopaPDV s2 = new StopaPDV();
+		s2.setId(3L);
+		s2.setStopa((float)0.5);
+		s2.setPdv(pdvRepository.getOne(1L));
+		try {
+			s2.setDatumVazenja(d = sdf.parse("12-12-2021"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		stopaPDVRepository.save(s);
+		stopaPDVRepository.save(s1);
+		stopaPDVRepository.save(s2);
+		
 	}
 	
 

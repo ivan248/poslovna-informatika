@@ -36,7 +36,7 @@ public class GrupaProizvoda implements Serializable {
     private String nazivGrupeProizvoda;
     
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "pdv_id", nullable = false)
+    @JoinColumn(name = "pdv_id", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private PDV pdv;
