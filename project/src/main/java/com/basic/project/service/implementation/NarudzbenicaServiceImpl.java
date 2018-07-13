@@ -54,7 +54,9 @@ public class NarudzbenicaServiceImpl implements NarudzbenicaService {
 			
 			for (ListaStavkiHelperObject ls : listaStavkiHelper)
 			{
-			    listaStavki.put(proizvodRepository.getOne(ls.getId()), ls.getKolicina());
+				//dobijam -> proizvod : kolicina sa fronta i onda ako je kolicina > 0 onda moze da se ubaci
+				if(ls.getKolicina() > 0)
+					listaStavki.put(proizvodRepository.getOne(ls.getId()), ls.getKolicina());
 			}
 			
 			n.setListaStavki(listaStavki);
