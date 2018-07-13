@@ -19,6 +19,7 @@ import com.basic.project.repository.CenovnikRepository;
 import com.basic.project.repository.FakturaRepository;
 import com.basic.project.repository.PoslovnaGodinaRepository;
 import com.basic.project.repository.ProizvodRepository;
+import com.basic.project.repository.StavkaFaktureRepository;
 import com.basic.project.repository.StopaPDVRepository;
 import com.basic.project.service.FakturaService;
 import com.basic.project.web.dto.ListaStavkiHelperObject;
@@ -40,6 +41,9 @@ public class FakturaServiceImpl implements FakturaService {
 	
 	@Autowired
 	private PoslovnaGodinaRepository poslovnaGodinaRepository;
+	
+	@Autowired
+	private StavkaFaktureRepository stavkaFaktureRepository;	
 
 	@Override
 	public List<Faktura> getAll() {
@@ -100,11 +104,26 @@ public class FakturaServiceImpl implements FakturaService {
 
 			Faktura f = new Faktura();
 			
+			
+			f.setDatumFakture(new Date(Calendar.getInstance().getTime().getTime()));
+			f.setDatumValute(new Date(Calendar.getInstance().getTime().getTime()));
+			
+			f.setBrojFakture("FAKTURA_BROJ_" + (int)(Math.random()*1000));
+			f.setPoslovnaGodina(poslovnaGodinaRepository.getOne(1L));
+			
+			fakturaRepository.save(f);
+			
+			List<Faktura> listaFaktura = new ArrayList<Faktura>(fakturaRepository.findAll());
+			
+			f = listaFaktura.get(listaFaktura.size()-1);
+			
 			List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
 			
 			for (Map.Entry<Proizvod, Integer> stavka : n.getListaStavki().entrySet())
 			{
 				StavkaFakture sf = new StavkaFakture();
+
+				sf.setFaktura(f);
 				
 				// KOLICINA
 				sf.setKolicina(stavka.getValue());
@@ -121,7 +140,7 @@ public class FakturaServiceImpl implements FakturaService {
 					if(sc.getProizvod().getId() == sf.getProizvod().getId())
 					{
 						System.out.println("Pronasao proizvod za aktuelni cenovnik!");
-						System.out.println(sc);
+						//System.out.println(sc);
 						sf.setJedinicnaCena(sc.getCena());
 						break;
 					}
@@ -140,7 +159,11 @@ public class FakturaServiceImpl implements FakturaService {
 				
 				sf.setUkupanIznos(sf.getOsnovica()+sf.getIznosPDV());
 				
-				stavkeFakture.add(sf);
+				stavkaFaktureRepository.save(sf);
+				
+				List<StavkaFakture> listaIzBaze = new ArrayList<StavkaFakture>(stavkaFaktureRepository.findAll());
+				
+				stavkeFakture.add(listaIzBaze.get(listaIzBaze.size()-1));
 			
 			}
 			
@@ -155,15 +178,10 @@ public class FakturaServiceImpl implements FakturaService {
 
 			}
 			
-			
-			f.setDatumFakture(new Date(Calendar.getInstance().getTime().getTime()));
-			f.setDatumValute(new Date(Calendar.getInstance().getTime().getTime()));
-			
-			f.setBrojFakture("FAKTURA_BROJ_" + (Math.random()*10));
-			f.setPoslovnaGodina(poslovnaGodinaRepository.getOne(1L));
+
 			fakturaRepository.save(f);
 			
-			System.out.println(f);
+			//System.out.println(f);
 			
 			return true;
 
