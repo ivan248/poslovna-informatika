@@ -274,11 +274,15 @@ public class Converter {
 		
 		nrd.setPoslovniPartner(p);
 		
-		Map<Long, Integer> listaStavki = new HashMap<Long, Integer>();
+		List<ListaStavkiHelperObject> listaStavki = new ArrayList<ListaStavkiHelperObject>();
 		
 		for (Map.Entry<Proizvod, Integer> entry : narudzbenica.getListaStavki().entrySet())
 		{
-		    listaStavki.put(entry.getKey().getId(), entry.getValue());
+			ListaStavkiHelperObject ls = new ListaStavkiHelperObject();
+			
+			ls.setId(entry.getKey().getId());
+			ls.setKolicina(entry.getValue());
+		    listaStavki.add(ls);
 		}
 		
 		nrd.setListaStavki(listaStavki);

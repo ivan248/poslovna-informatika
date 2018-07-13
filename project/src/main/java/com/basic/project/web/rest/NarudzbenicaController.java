@@ -63,28 +63,28 @@ public class NarudzbenicaController {
     }
 	 */
 	
-	// ADD ONE
-	@PostMapping("/add")
-	public ResponseEntity<Boolean> add(@RequestBody NarudzbenicaReceiverDTO narudzbenicaDTO) {
-		
-		System.out.println("Pogodio add narudzbenica!" + narudzbenicaDTO);
-		if(narudzbenicaService.add(Converter.convertNarudzbenicaReceiverDTOToNarudzbenica(narudzbenicaDTO), narudzbenicaDTO.getListaStavki()))
-			return new ResponseEntity<Boolean>(true, HttpStatus.CREATED);
-		
-		return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
-
-	}
-	
-	// UPDATE ONE
-	@PutMapping("/update")
-	public ResponseEntity<Boolean> updateGrupaProizvoda(@RequestBody NarudzbenicaReceiverDTO narudzbenicaDTO) {
-		
-		System.out.println("Pogodio add narudzbenica!" + narudzbenicaDTO);
-		if(narudzbenicaService.update(Converter.convertNarudzbenicaReceiverDTOToNarudzbenica(narudzbenicaDTO), narudzbenicaDTO.getListaStavki()))
-			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-		
-		return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
-	}
+//	// ADD ONE
+//	@PostMapping("/add")
+//	public ResponseEntity<Boolean> add(@RequestBody NarudzbenicaReceiverDTO narudzbenicaDTO) {
+//		
+//		System.out.println("Pogodio add narudzbenica!" + narudzbenicaDTO);
+//		if(narudzbenicaService.add(Converter.convertNarudzbenicaReceiverDTOToNarudzbenica(narudzbenicaDTO), narudzbenicaDTO.getListaStavki()))
+//			return new ResponseEntity<Boolean>(true, HttpStatus.CREATED);
+//		
+//		return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
+//
+//	}
+//	
+//	// UPDATE ONE
+//	@PutMapping("/update")
+//	public ResponseEntity<Boolean> updateGrupaProizvoda(@RequestBody NarudzbenicaReceiverDTO narudzbenicaDTO) {
+//		
+//		System.out.println("Pogodio add narudzbenica!" + narudzbenicaDTO);
+//		if(narudzbenicaService.update(Converter.convertNarudzbenicaReceiverDTOToNarudzbenica(narudzbenicaDTO), narudzbenicaDTO.getListaStavki()))
+//			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+//		
+//		return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
+//	}
 	
 	// DELETE ONE
 	@DeleteMapping("/delete")

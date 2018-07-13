@@ -1,5 +1,6 @@
 package com.basic.project.web.dto;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -7,7 +8,7 @@ public class NarudzbenicaReceiverDTO {
 
     private Long id;
 	private PoslovniPartnerDTO poslovniPartner;
-    Map<Long, Integer> listaStavki;
+    List<ListaStavkiHelperObject> listaStavki;
     
     public NarudzbenicaReceiverDTO() {
     	
@@ -29,11 +30,11 @@ public class NarudzbenicaReceiverDTO {
 		this.poslovniPartner = poslovniPartner;
 	}
 
-	public Map<Long, Integer> getListaStavki() {
+	public List<ListaStavkiHelperObject> getListaStavki() {
 		return listaStavki;
 	}
 
-	public void setListaStavki(Map<Long, Integer> listaStavki) {
+	public void setListaStavki(List<ListaStavkiHelperObject> listaStavki) {
 		this.listaStavki = listaStavki;
 	}
 
@@ -42,5 +43,5 @@ public class NarudzbenicaReceiverDTO {
 		return "NarudzbenicaReceiverDTO [id=" + id + ", poslovniPartner=" + poslovniPartner + ", listaStavki="
 				+ listaStavki + "]";
 	}
-    
+
 }
