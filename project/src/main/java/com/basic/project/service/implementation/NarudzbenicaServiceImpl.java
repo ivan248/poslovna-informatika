@@ -12,6 +12,7 @@ import com.basic.project.domain.Proizvod;
 import com.basic.project.repository.NarudzbenicaRepository;
 import com.basic.project.repository.ProizvodRepository;
 import com.basic.project.service.NarudzbenicaService;
+import com.basic.project.web.dto.ListaStavkiHelperObject;
 
 @Service
 public class NarudzbenicaServiceImpl implements NarudzbenicaService {
@@ -45,16 +46,15 @@ public class NarudzbenicaServiceImpl implements NarudzbenicaService {
 	}
 
 	@Override
-	public boolean add(Narudzbenica n, Map<Long, Integer> map) {
+	public boolean add(Narudzbenica n, List<ListaStavkiHelperObject> listaStavkiHelper) {
 
 		try {
 			
 			Map<Proizvod, Integer> listaStavki = new HashMap<Proizvod, Integer>();
 			
-			for (Map.Entry<Long, Integer> entry : map.entrySet())
+			for (ListaStavkiHelperObject ls : listaStavkiHelper)
 			{
-			    System.out.println(entry.getKey() + "/" + entry.getValue());
-			    listaStavki.put(proizvodRepository.getOne(entry.getKey()), entry.getValue());
+			    listaStavki.put(proizvodRepository.getOne(ls.getId()), ls.getKolicina());
 			}
 			
 			n.setListaStavki(listaStavki);
@@ -70,16 +70,15 @@ public class NarudzbenicaServiceImpl implements NarudzbenicaService {
 	}
 
 	@Override
-	public boolean update(Narudzbenica n, Map<Long, Integer> map) {
+	public boolean update(Narudzbenica n, List<ListaStavkiHelperObject> listaStavkiHelper) {
 
 		try {
 			
 			Map<Proizvod, Integer> listaStavki = new HashMap<Proizvod, Integer>();
 			
-			for (Map.Entry<Long, Integer> entry : map.entrySet())
+			for (ListaStavkiHelperObject ls : listaStavkiHelper)
 			{
-			    System.out.println(entry.getKey() + "/" + entry.getValue());
-			    listaStavki.put(proizvodRepository.getOne(entry.getKey()), entry.getValue());
+			    listaStavki.put(proizvodRepository.getOne(ls.getId()), ls.getKolicina());
 			}
 			
 			n.setListaStavki(listaStavki);

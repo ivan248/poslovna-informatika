@@ -1,11 +1,11 @@
 package com.basic.project.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import com.basic.project.domain.Narudzbenica;
+import com.basic.project.web.dto.ListaStavkiHelperObject;
 
 @Service
 public interface NarudzbenicaService {
@@ -14,9 +14,9 @@ public interface NarudzbenicaService {
 
 	Narudzbenica getOne(Long id);
 
-	boolean add(Narudzbenica n, Map<Long, Integer> map);
+	boolean add(Narudzbenica n, List<ListaStavkiHelperObject> listaStavkiHelper);
 
-	boolean update(Narudzbenica n, Map<Long, Integer> map);
+	boolean update(Narudzbenica n, List<ListaStavkiHelperObject> listaStavkiHelper);
 
 	boolean delete(Long id);
 
