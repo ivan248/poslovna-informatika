@@ -223,6 +223,43 @@ public class Converter {
 		return pp;
 	}
 	
+	public static List<PoslovniPartnerDTO> convertPoslovniPartnersToPoslovniPartnersDTOs(
+			List<PoslovniPartner> listaPartnera) {
+		
+		List<PoslovniPartnerDTO> listaPartneraDTO = new ArrayList<PoslovniPartnerDTO>();
+		
+		for(PoslovniPartner p:listaPartnera)
+		{
+			listaPartneraDTO.add(convertPoslovniPartnerToPoslovniPartnerDTO(p));
+		}
+		
+		return listaPartneraDTO;
+	}
+	
+	public static PoslovniPartnerDTO convertPoslovniPartnerToPoslovniPartnerDTO(PoslovniPartner pp) {
+	
+		PoslovniPartnerDTO poslovniPartnerDTO = new PoslovniPartnerDTO();
+		
+		poslovniPartnerDTO.setEmailPoslovnogPartnera(pp.getEmailPoslovnogPartnera());
+		poslovniPartnerDTO.setId(pp.getId());
+		poslovniPartnerDTO.setNazivPoslovnogPartnera(pp.getNazivPoslovnogPartnera());
+		poslovniPartnerDTO.setPibPoslovnogPartnera(pp.getPibPoslovnogPartnera());
+		poslovniPartnerDTO.setPoslovniPartnerVrsta(pp.getPoslovniPartnerVrsta());
+		poslovniPartnerDTO.setTelefonPoslovnogPartnera(pp.getTelefonPoslovnogPartnera());
+		
+		Adresa a = new Adresa();
+		
+		a.setBrojUlice(pp.getAdresaPoslovnogPartnera().getBrojUlice());
+		a.setGrad(pp.getAdresaPoslovnogPartnera().getGrad());
+		a.setId(pp.getAdresaPoslovnogPartnera().getId());
+		a.setPostanskiBroj(pp.getAdresaPoslovnogPartnera().getPostanskiBroj());
+		a.setUlica(pp.getAdresaPoslovnogPartnera().getUlica());
+		
+		poslovniPartnerDTO.setAdresaPoslovnogPartnera(a);
+
+		return poslovniPartnerDTO;
+	}
+	
 	//=============================================== Narudzbenica =====================================================
 	
 	public static Narudzbenica convertNarudzbenicaReceiverDTOToNarudzbenica(NarudzbenicaReceiverDTO narudzbenicaReceiverDTO) {
@@ -364,5 +401,7 @@ public class Converter {
 		s.setDatumVazenja(stopaPDV.getDatumVazenja());
 		return s;
 	}
+
+
 	
 }

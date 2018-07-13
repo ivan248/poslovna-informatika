@@ -19,26 +19,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity(name = "Preduzece")
 @Table(name = "preduzece")
 public class Preduzece implements Serializable {
-	 
 	
 	private static final long serialVersionUID = 1L;
-	private static final Preduzece instance = new Preduzece();
-	public static Preduzece getInstance() {
-		return instance;
-	}
-
-	private Preduzece() {}
 	
-
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
 	@Column
 	private String naziv;
-	
-	@Column
-	private String adresa;
 	
 	@Column 
 	private String kontaktTelefon;
@@ -55,6 +44,10 @@ public class Preduzece implements Serializable {
     @JsonIgnore
     private Adresa adresaPreduzeca;
 
+    public Preduzece() {
+    	
+    }
+    
 	public Long getId() {
 		return id;
 	}
@@ -69,14 +62,6 @@ public class Preduzece implements Serializable {
 
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
-	}
-
-	public String getAdresa() {
-		return adresa;
-	}
-
-	public void setAdresa(String adresa) {
-		this.adresa = adresa;
 	}
 
 	public String getKontaktTelefon() {
@@ -113,7 +98,7 @@ public class Preduzece implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Preduzece [id=" + id + ", naziv=" + naziv + ", adresa=" + adresa + ", kontaktTelefon=" + kontaktTelefon
+		return "Preduzece [id=" + id + ", naziv=" + naziv + ", kontaktTelefon=" + kontaktTelefon
 				+ ", PIB=" + PIB + ", email=" + email + ", adresaPreduzeca=" + adresaPreduzeca + "]";
 	}
 	    
