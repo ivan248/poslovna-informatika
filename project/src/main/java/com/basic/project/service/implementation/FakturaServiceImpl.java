@@ -1,6 +1,8 @@
 package com.basic.project.service.implementation;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,6 +31,12 @@ import com.basic.project.service.FakturaService;
 import com.basic.project.web.dto.Converter;
 import com.basic.project.web.dto.FakturaDTO;
 import com.basic.project.web.dto.ListaStavkiHelperObject;
+
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Service
 public class FakturaServiceImpl implements FakturaService {
@@ -215,6 +223,30 @@ public class FakturaServiceImpl implements FakturaService {
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			
 			jaxbMarshaller.marshal(fakturaZaExport, file);
+			
+			//****************************** PDF
+			
+			List<StavkaFakture> listaStavki = fakturaIzBaze.getStavkeFakture();
+			
+			JRBeanCollectionDataSource itemsJRBean1 = new JRBeanCollectionDataSource(listaStavki);
+
+			Map<String, Object> parameters1 = new HashMap<String, Object>();
+			parameters1.put("ItemDataSource", itemsJRBean1);
+			parameters1.put("BrojFakture", fakturaIzBaze.getBrojFakture());
+			parameters1.put("DatumFakture", fakturaIzBaze.getDatumFakture());
+			parameters1.put("IznosBezPDV", fakturaIzBaze.getUkupanIznosBezPDV());
+			parameters1.put("UkupanPDV", fakturaIzBaze.getUkupanPDV());
+			parameters1.put("UkupanRabat", fakturaIzBaze.getUkupanRabat());
+			parameters1.put("UkupnoZaPlacanje", fakturaIzBaze.getUkupnoZaPlacanje());
+			
+			JasperPrint jasperPrint1 = JasperFillManager.fillReport("fakturaSaStavkama.jasper", parameters1, new JREmptyDataSource());
+		    File pdfFile = new File("FakturaIzvestaj.pdf");
+		    OutputStream outputStream1 = new FileOutputStream(pdfFile);
+		    JasperExportManager.exportReportToPdfStream(jasperPrint1, outputStream1);
+		    
+		    outputStream1.close();
+			
+			//****************************** PDF
 			
 			return true;
 			
