@@ -45,16 +45,16 @@ public class Faktura implements Serializable {
     private Date datumValute;
 
     @Column
-    private Double ukupanRabat;
+    private Double ukupanRabat = 0.0;
 
     @Column
-    private Double ukupanIznosBezPDV;
+    private Double ukupanIznosBezPDV = 0.0;
 
     @Column
-    private Double ukupanPDV;
+    private Double ukupanPDV = 0.0;
 
     @Column
-    private Double ukupnoZaPlacanje;
+    private Double ukupnoZaPlacanje = 0.0;
     
     @OneToMany(mappedBy="faktura", orphanRemoval=true)
     private List<StavkaFakture> stavkeFakture;

@@ -3,7 +3,6 @@ package com.basic.project.web.dto;
 import java.sql.Date;
 import java.util.List;
 
-import com.basic.project.domain.PoslovnaGodina;
 import com.basic.project.domain.StavkaFakture;
 
 public class FakturaDTO {
@@ -16,8 +15,8 @@ public class FakturaDTO {
     private Double ukupanIznosBezPDV;
     private Double ukupanPDV;
     private Double ukupnoZaPlacanje;
-    private List<StavkaFakture> stavkeFakture;
-    private PoslovnaGodina poslovnaGodina;
+    private List<StavkaFaktureDTO> stavkeFakture;
+    private PoslovnaGodinaDTO poslovnaGodina;
     
     public FakturaDTO() {
     	
@@ -87,19 +86,19 @@ public class FakturaDTO {
 		this.ukupnoZaPlacanje = ukupnoZaPlacanje;
 	}
 
-	public List<StavkaFakture> getStavkeFakture() {
+	public List<StavkaFaktureDTO> getStavkeFakture() {
 		return stavkeFakture;
 	}
 
-	public void setStavkeFakture(List<StavkaFakture> stavkeFakture) {
+	public void setStavkeFakture(List<StavkaFaktureDTO> stavkeFakture) {
 		this.stavkeFakture = stavkeFakture;
 	}
 
-	public PoslovnaGodina getPoslovnaGodina() {
+	public PoslovnaGodinaDTO getPoslovnaGodina() {
 		return poslovnaGodina;
 	}
 
-	public void setPoslovnaGodina(PoslovnaGodina poslovnaGodina) {
+	public void setPoslovnaGodina(PoslovnaGodinaDTO poslovnaGodina) {
 		this.poslovnaGodina = poslovnaGodina;
 	}
 

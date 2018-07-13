@@ -8,4 +8,5 @@ import com.basic.project.domain.Cenovnik;
 @Repository
 public interface CenovnikRepository extends JpaRepository<Cenovnik,Long> {
 
+	Cenovnik findByAktivan(boolean isAktivan);
 }

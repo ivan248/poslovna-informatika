@@ -14,6 +14,7 @@ import com.basic.project.domain.PDV;
 import com.basic.project.domain.PoslovniPartner;
 import com.basic.project.domain.Proizvod;
 import com.basic.project.domain.StavkaCenovnika;
+import com.basic.project.domain.StavkaFakture;
 import com.basic.project.domain.StopaPDV;
 
 public class Converter {
@@ -378,7 +379,7 @@ public class Converter {
 		if(stopaPDVDTO.getId() != null)
 			s.setId(stopaPDVDTO.getId());
 		
-		s.setStopa(stopaPDVDTO.getStopa());
+		s.setStopa((double)stopaPDVDTO.getStopa());
 		s.setPdv(stopaPDVDTO.getPdv());
 		s.setDatumVazenja(stopaPDVDTO.getDatumVazenja());
 		
@@ -402,6 +403,8 @@ public class Converter {
 		s.setDatumVazenja(stopaPDV.getDatumVazenja());
 		return s;
 	}
+	
+	//=============================================== Faktura =====================================================
 
 	public static List<FakturaDTO> convertFakturasToFakturaDTOs(List<Faktura> all) {
 
@@ -427,6 +430,56 @@ public class Converter {
 		fakturaDTO.setUkupanPDV(f.getUkupanPDV());
 		fakturaDTO.setUkupanRabat(f.getUkupanRabat());
 		fakturaDTO.setUkupnoZaPlacanje(f.getUkupnoZaPlacanje());
+		
+		PoslovnaGodinaDTO pgDTO = new PoslovnaGodinaDTO();
+		
+		pgDTO.setGodina(f.getPoslovnaGodina().getGodina());
+		pgDTO.setId(f.getPoslovnaGodina().getId());
+		pgDTO.setZakljucena(f.getPoslovnaGodina().isZakljucena());
+		
+		PreduzeceDTO preduzeceDTO = new PreduzeceDTO();
+		
+		preduzeceDTO.setEmail(f.getPoslovnaGodina().getPreduzece().getEmail());
+		preduzeceDTO.setId(f.getPoslovnaGodina().getPreduzece().getId());
+		preduzeceDTO.setKontaktTelefon(f.getPoslovnaGodina().getPreduzece().getKontaktTelefon());
+		preduzeceDTO.setNaziv(f.getPoslovnaGodina().getPreduzece().getNaziv());
+		preduzeceDTO.setPIB(f.getPoslovnaGodina().getPreduzece().getPIB());
+		
+		Adresa a = new Adresa();
+		
+		a.setBrojUlice(f.getPoslovnaGodina().getPreduzece().getAdresaPreduzeca().getBrojUlice());
+		a.setGrad(f.getPoslovnaGodina().getPreduzece().getAdresaPreduzeca().getGrad());
+		a.setId(f.getPoslovnaGodina().getPreduzece().getAdresaPreduzeca().getId());
+		a.setPostanskiBroj(f.getPoslovnaGodina().getPreduzece().getAdresaPreduzeca().getPostanskiBroj());
+		a.setUlica(f.getPoslovnaGodina().getPreduzece().getAdresaPreduzeca().getUlica());
+		
+		preduzeceDTO.setAdresaPreduzeca(a);
+		
+		pgDTO.setPreduzece(preduzeceDTO);
+		
+		fakturaDTO.setPoslovnaGodina(pgDTO);
+		
+		List<StavkaFaktureDTO> stavkeFakture = new ArrayList<StavkaFaktureDTO>();
+		
+		for(StavkaFakture sf:f.getStavkeFakture())
+		{
+			StavkaFaktureDTO stavkaFaktureDTO = new StavkaFaktureDTO();
+			
+			stavkaFaktureDTO.setId(sf.getId());
+			stavkaFaktureDTO.setIznosPDV(sf.getIznosPDV());
+			stavkaFaktureDTO.setJedinicnaCena(sf.getJedinicnaCena());
+			stavkaFaktureDTO.setKolicina(sf.getKolicina());
+			stavkaFaktureDTO.setOsnovica(sf.getOsnovica());
+			stavkaFaktureDTO.setRabat(sf.getRabat());
+			stavkaFaktureDTO.setStopaPDV(sf.getStopaPDV());
+			stavkaFaktureDTO.setUkupanIznos(sf.getUkupanIznos());
+			
+			stavkaFaktureDTO.setProizvod(convertProizvodToProizvodDTO(sf.getProizvod()));
+			
+			stavkeFakture.add(stavkaFaktureDTO);
+		}
+		
+		fakturaDTO.setStavkeFakture(stavkeFakture);
 		
 		return fakturaDTO;
 	}

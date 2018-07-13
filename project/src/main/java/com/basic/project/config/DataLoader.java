@@ -106,7 +106,7 @@ public class DataLoader implements ApplicationRunner {
 //		 insertIntoStavkeFakture();
 //		 insertIntoPreduzece();
 //		 insertIntoPoslovnaGodina();
-		setActiveCenovnik();
+		 setActiveCenovnik();
 	}
 
 	private void setActiveCenovnik() {
@@ -495,7 +495,7 @@ public class DataLoader implements ApplicationRunner {
 
 		StopaPDV s = new StopaPDV();
 		s.setId(1L);
-		s.setStopa((float) 0.1);
+		s.setStopa(0.1);
 		s.setPdv(pdvRepository.getOne(1L));
 		try {
 			s.setDatumVazenja(d = sdf.parse("13-09-2018"));
@@ -505,7 +505,7 @@ public class DataLoader implements ApplicationRunner {
 
 		StopaPDV s1 = new StopaPDV();
 		s1.setId(2L);
-		s1.setStopa((float) 0.2);
+		s1.setStopa(0.2);
 		s1.setPdv(pdvRepository.getOne(2L));
 		try {
 			s1.setDatumVazenja(d = sdf.parse("21-12-2018"));
@@ -515,7 +515,7 @@ public class DataLoader implements ApplicationRunner {
 
 		StopaPDV s2 = new StopaPDV();
 		s2.setId(3L);
-		s2.setStopa((float) 0.5);
+		s2.setStopa(0.5);
 		s2.setPdv(pdvRepository.getOne(1L));
 		try {
 			s2.setDatumVazenja(d = sdf.parse("12-12-2021"));

@@ -28,7 +28,7 @@ public class StopaPDV  implements Serializable {
     private Long id;
 	
 	@Column
-	private float stopa;
+	private Double stopa;
 	
 	@Column
 	private Date datumVazenja;
@@ -49,11 +49,11 @@ public class StopaPDV  implements Serializable {
 		this.id = id;
 	}
 
-	public float getStopa() {
+	public Double getStopa() {
 		return stopa;
 	}
 
-	public void setStopa(float stopa) {
+	public void setStopa(Double stopa) {
 		this.stopa = stopa;
 	}
 

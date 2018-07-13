@@ -7,12 +7,12 @@ import com.basic.project.domain.PDV;
 public class StopaPDVDTO {
 	
 	private Long id;
-	private float stopa;
+	private Double stopa;
 	private Date datumVazenja;
 	private PDV pdv;
 	
 	public StopaPDVDTO() {}
-	public StopaPDVDTO(Long id, float stopa, Date datum, PDV pdv) {
+	public StopaPDVDTO(Long id, Double stopa, Date datum, PDV pdv) {
 		this.id = id;
 		this.stopa = stopa;
 		this.datumVazenja = datum;
@@ -24,11 +24,11 @@ public class StopaPDVDTO {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public float getStopa() {
+	public Double getStopa() {
 		return stopa;
 	}
-	public void setStopa(float stopa) {
-		this.stopa = stopa;
+	public void setStopa(Double double1) {
+		this.stopa = double1;
 	}
 	public Date getDatumVazenja() {
 		return datumVazenja;
