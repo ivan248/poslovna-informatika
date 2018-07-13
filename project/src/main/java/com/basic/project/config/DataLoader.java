@@ -92,21 +92,21 @@ public class DataLoader implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		// insertIntoPDV();
-		// insertIntoJedinicaMere();
-		// insertIntoGrupaProizvoda();
-		// insertIntoProizvod();
-		// insertIntoCenovnik();
-		// insertIntoStavkaCenovnika();
-		// insertIntoAdresa();
-		// insertIntoPoslovniPartner();
-		// insertIntoNarudzbenica();
-		// insertIntoStopaPDV();
-		// insertIntoFaktura();
-		// insertIntoStavkeFakture();
-		// insertIntoPreduzece();
-		// insertIntoPoslovnaGodina();
-		setActiveCenovnik();
+//		 insertIntoPDV();
+//		 insertIntoJedinicaMere();
+//		 insertIntoGrupaProizvoda();
+//		 insertIntoProizvod();
+//		 insertIntoCenovnik();
+//		 insertIntoStavkaCenovnika();
+//		 insertIntoAdresa();
+//		 insertIntoPoslovniPartner();
+//		 insertIntoNarudzbenica();
+//		 insertIntoStopaPDV();
+//		 insertIntoFaktura();
+//		 insertIntoStavkeFakture();
+//		 insertIntoPreduzece();
+//		 insertIntoPoslovnaGodina();
+//		 setActiveCenovnik();
 	}
 
 	private void setActiveCenovnik() {

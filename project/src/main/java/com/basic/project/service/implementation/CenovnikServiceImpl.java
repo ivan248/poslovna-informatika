@@ -71,18 +71,24 @@ public class CenovnikServiceImpl implements CenovnikService {
 		//ubaciti novi cenovnik u bazu
 		
 		//prekopirati sve stavke koje su vezane za parent cenovnik
-		List<StavkaCenovnika> listaStavki = stavkaRepository.findAll();
-		for (StavkaCenovnika s : listaStavki) {
-			if (s.getCenovnik().getId() == id) {
-				StavkaCenovnika novaStavka = new StavkaCenovnika();
-				novaStavka.setCena(  (s.getCena() * (promenaCene/100.0)));
-				novaStavka.setCenovnik(c);
-				novaStavka.setProizvod(s.getProizvod());
-				stavkaRepository.save(novaStavka);
+		try {
+			List<StavkaCenovnika> listaStavki = stavkaRepository.findAll();
+			for (StavkaCenovnika s : listaStavki) {
+				if (s.getCenovnik().getId() == id) {
+					StavkaCenovnika novaStavka = new StavkaCenovnika();
+					novaStavka.setCena(  (s.getCena() * (promenaCene/100.0)));
+					novaStavka.setCenovnik(c);
+					novaStavka.setProizvod(s.getProizvod());
+					stavkaRepository.save(novaStavka);
+				}
 			}
+			
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
 		
-		return true;
 	}
 
 }

@@ -74,11 +74,11 @@ public class CenovnikController {
 		public ResponseEntity<Boolean> copy(@RequestBody Cenovnik c,@RequestParam("parentId") Long id,@RequestParam("promenaCene") double promenaCene) {
 			System.out.println(c.getDatumVazenja());
 			System.out.println(promenaCene);
-			service.copy(c, id, promenaCene);
 			
 			
-//			if(service.add(cenovnik))
-//				return new ResponseEntity<Boolean>(true, HttpStatus.CREATED);
+			
+			if(service.copy(c, id, promenaCene))
+				return new ResponseEntity<Boolean>(true, HttpStatus.CREATED);
 			
 			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
 
