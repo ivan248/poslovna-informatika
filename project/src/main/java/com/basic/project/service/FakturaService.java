@@ -10,4 +10,6 @@ import com.basic.project.domain.Faktura;
 public interface FakturaService {
 
 	List<Faktura> getAll();
+
+	Faktura getFaktura(Long fakturaId);
 }

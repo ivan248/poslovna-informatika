@@ -30,4 +30,18 @@ public class FakturaServiceImpl implements FakturaService {
 		
 	}
 
+	@Override
+	public Faktura getFaktura(Long fakturaId) {
+
+		try {
+			
+			return fakturaRepository.findById(fakturaId).get();
+			
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

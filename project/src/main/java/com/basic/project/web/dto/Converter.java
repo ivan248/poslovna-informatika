@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.basic.project.domain.Adresa;
 import com.basic.project.domain.Cenovnik;
+import com.basic.project.domain.Faktura;
 import com.basic.project.domain.GrupaProizvoda;
 import com.basic.project.domain.JedinicaMere;
 import com.basic.project.domain.Narudzbenica;
@@ -400,6 +401,34 @@ public class Converter {
 		s.setPdv(p);
 		s.setDatumVazenja(stopaPDV.getDatumVazenja());
 		return s;
+	}
+
+	public static List<FakturaDTO> convertFakturasToFakturaDTOs(List<Faktura> all) {
+
+		List<FakturaDTO> listaFaktura = new ArrayList<FakturaDTO>();
+		
+		for(Faktura f:all)
+		{
+			listaFaktura.add(convertFakturaToFakturaDTO(f));
+		}
+		
+		return listaFaktura;
+	}
+
+	public static FakturaDTO convertFakturaToFakturaDTO(Faktura f) {
+
+		FakturaDTO fakturaDTO = new FakturaDTO();
+		
+		fakturaDTO.setBrojFakture(f.getBrojFakture());
+		fakturaDTO.setDatumFakture(f.getDatumFakture());
+		fakturaDTO.setDatumValute(f.getDatumValute());
+		fakturaDTO.setId(f.getId());
+		fakturaDTO.setUkupanIznosBezPDV(f.getUkupanIznosBezPDV());
+		fakturaDTO.setUkupanPDV(f.getUkupanPDV());
+		fakturaDTO.setUkupanRabat(f.getUkupanRabat());
+		fakturaDTO.setUkupnoZaPlacanje(f.getUkupnoZaPlacanje());
+		
+		return fakturaDTO;
 	}
 
 
