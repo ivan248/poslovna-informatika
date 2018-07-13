@@ -3,6 +3,7 @@ package com.basic.project.config;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -91,20 +92,58 @@ public class DataLoader implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-//		insertIntoPDV();
-//		insertIntoJedinicaMere();
-//		insertIntoGrupaProizvoda();
-//		insertIntoProizvod();
-//		insertIntoCenovnik();
-//		insertIntoStavkaCenovnika();
-//		insertIntoAdresa();
-//		insertIntoPoslovniPartner();
-//		insertIntoNarudzbenica();
-//		insertIntoStopaPDV();
-//		insertIntoFaktura();
-//		insertIntoStavkeFakture();
-//		insertIntoPreduzece();
-//		insertIntoPoslovnaGodina();
+		// insertIntoPDV();
+		// insertIntoJedinicaMere();
+		// insertIntoGrupaProizvoda();
+		// insertIntoProizvod();
+		// insertIntoCenovnik();
+		// insertIntoStavkaCenovnika();
+		// insertIntoAdresa();
+		// insertIntoPoslovniPartner();
+		// insertIntoNarudzbenica();
+		// insertIntoStopaPDV();
+		// insertIntoFaktura();
+		// insertIntoStavkeFakture();
+		// insertIntoPreduzece();
+		// insertIntoPoslovnaGodina();
+		setActiveCenovnik();
+	}
+
+	private void setActiveCenovnik() {
+
+		List<Cenovnik> listaCenovnika = cenovnikRepository.findAll();
+
+//		System.out.println("Before");
+//		for (Cenovnik c : listaCenovnika)
+//			System.out.println(c.getDatumVazenja());
+
+		Collections.sort(listaCenovnika, Collections.reverseOrder());
+
+//		System.out.println("After");
+//		for (Cenovnik c : listaCenovnika)
+//			System.out.println(c.getDatumVazenja());
+
+		Date d = new Date();
+
+		for (Cenovnik c : listaCenovnika) {
+			c.setAktivan(false);
+		}
+
+		for (Cenovnik c : listaCenovnika) {
+			if (c.getDatumVazenja().before(d)) {
+				System.out.println("SETOVAN AKTIVAN CENOVNIK ID: " + c.getId());
+				System.out.println("Datum vazenja cenovnika: ");
+				System.out.println(c.getDatumVazenja());
+				System.out.println("Danasnji datum: ");
+				System.out.println(d);
+				c.setAktivan(true);
+				break;
+			}
+		}
+		
+		for (Cenovnik c : listaCenovnika) {
+			cenovnikRepository.save(c);
+		}
 	}
 
 	private void insertIntoStavkeFakture() {
@@ -253,7 +292,7 @@ public class DataLoader implements ApplicationRunner {
 		p.setPoslovniPartnerVrsta(PoslovniPartnerVrsta.FIZICKO_LICE);
 
 		poslovniPartnerRepository.save(p);
-		
+
 		PoslovniPartner p1 = new PoslovniPartner();
 
 		p1.setAdresaPoslovnogPartnera(adresaRepository.getOne(2L));
@@ -395,15 +434,34 @@ public class DataLoader implements ApplicationRunner {
 		Cenovnik c = new Cenovnik();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		Date d = null;
+		
+		
+		
+		
 		try {
-			d = sdf.parse(sdf.format(new Date()));
+			d = sdf.parse("12-07-2018");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		c.setDatumVazenja(d);
+		c.setAktivan(false);
 
 		cenovnikRepository.save(c);
 
+
+		
+		Cenovnik ccc = new Cenovnik();
+
+		try {
+			d = sdf.parse("05-07-2018");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		ccc.setDatumVazenja(d);
+		ccc.setAktivan(false);
+
+		cenovnikRepository.save(ccc);
+		
 		Cenovnik cc = new Cenovnik();
 
 		try {
@@ -412,6 +470,7 @@ public class DataLoader implements ApplicationRunner {
 			e.printStackTrace();
 		}
 		cc.setDatumVazenja(d);
+		cc.setAktivan(false);
 
 		cenovnikRepository.save(cc);
 

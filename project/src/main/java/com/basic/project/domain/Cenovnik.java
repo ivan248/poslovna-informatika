@@ -16,28 +16,16 @@ import javax.validation.constraints.NotNull;
 
 @Entity(name = "Cenovnik")
 @Table(name = "Cenovnik")
-public class Cenovnik implements Serializable {
+public class Cenovnik implements Serializable,Comparable<Cenovnik> {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	public Cenovnik() {}
 	
-
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    public List<StavkaCenovnika> getStavke() {
-		return stavke;
-	}
-
-	public void setStavke(List<StavkaCenovnika> stavke) {
-		this.stavke = stavke;
-	}
-
 
 	@Column(unique=true)
     @NotNull
@@ -46,12 +34,36 @@ public class Cenovnik implements Serializable {
     @OneToMany(mappedBy="cenovnik", orphanRemoval=true)
     private List<StavkaCenovnika> stavke;
     
+    @Column
+    @NotNull
+    private boolean aktivan;
+    
+	public Cenovnik() {
+		
+	}
+	
     public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+    
+    public boolean isAktivan() {
+		return aktivan;
+	}
+
+	public void setAktivan(boolean aktivan) {
+		this.aktivan = aktivan;
+	}
+
+	public List<StavkaCenovnika> getStavke() {
+		return stavke;
+	}
+
+	public void setStavke(List<StavkaCenovnika> stavke) {
+		this.stavke = stavke;
 	}
 
 	public Date getDatumVazenja() {
@@ -62,6 +74,15 @@ public class Cenovnik implements Serializable {
 		this.datumVazenja = datumVazenja;
 	}
 
-    
+	@Override
+	public String toString() {
+		return "Cenovnik [id=" + id + ", datumVazenja=" + datumVazenja + ", stavke=" + stavke + ", aktivan=" + aktivan
+				+ "]";
+	}
+
+	@Override
+	public int compareTo(Cenovnik o) {
+		return getDatumVazenja().compareTo(o.getDatumVazenja());
+	}
 
 }
