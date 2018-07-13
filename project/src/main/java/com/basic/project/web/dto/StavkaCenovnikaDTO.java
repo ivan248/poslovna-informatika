@@ -5,11 +5,11 @@ import com.basic.project.domain.Proizvod;
 
 public class StavkaCenovnikaDTO {
 	private Long id;
-	private Long cena;
+	private double cena;
 	private Proizvod proizvod;
 	private Cenovnik cenovnik;
 	
-	public StavkaCenovnikaDTO(Long id,Long cena,Proizvod proizvod, Cenovnik cenovnik) {
+	public StavkaCenovnikaDTO(Long id,double cena,Proizvod proizvod, Cenovnik cenovnik) {
     	this.id = id;
     	this.cena = cena;
     	this.proizvod = proizvod;
@@ -26,11 +26,11 @@ public class StavkaCenovnikaDTO {
 		this.id = id;
 	}
 
-	public Long getCena() {
+	public double getCena() {
 		return cena;
 	}
 
-	public void setCena(Long cena) {
+	public void setCena(double cena) {
 		this.cena = cena;
 	}
 

@@ -31,7 +31,7 @@ public class StavkaCenovnika implements Serializable {
     private Long id;
     
     @Column
-    private Long cena;
+    private double cena;
     
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "proizvod_id", nullable = false)
@@ -72,11 +72,11 @@ public class StavkaCenovnika implements Serializable {
 		this.id = id;
 	}
 
-	public Long getCena() {
+	public double getCena() {
 		return cena;
 	}
 
-	public void setCena(Long cena) {
+	public void setCena(double cena) {
 		this.cena = cena;
 	}
 

@@ -17,4 +17,6 @@ public interface CenovnikService {
 	boolean update(Cenovnik p);
 
 	boolean delete(Long id);
+	
+	boolean copy(Cenovnik c, Long id, double promenaCene);
 }
