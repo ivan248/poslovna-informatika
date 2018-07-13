@@ -13,6 +13,7 @@ import com.basic.project.service.CenovnikService;
 
 @Service
 public class CenovnikServiceImpl implements CenovnikService {
+
 	@Autowired
 	private CenovnikRepository repository;
 	

@@ -226,4 +226,29 @@ public class FakturaServiceImpl implements FakturaService {
 		
 	}
 
+	@Override
+	public List<Faktura> getKif(Date datumOd, Date datumDo) {
+		try {
+			List<Faktura> listaFaktura = new ArrayList<Faktura>();
+			
+			for(Faktura f:fakturaRepository.findAll())
+			{
+				if(datumOd.before(f.getDatumFakture()) && datumDo.after(f.getDatumFakture()))
+				{
+					System.out.println("Datum od: " + datumOd);
+					System.out.println("Datum moje fakture: " + f.getDatumFakture());
+					System.out.println("Datum do: " + datumDo);
+					listaFaktura.add(f);
+				}
+					
+			}
+				
+			return listaFaktura;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

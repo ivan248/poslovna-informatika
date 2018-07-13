@@ -1,5 +1,6 @@
 package com.basic.project.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -20,4 +21,6 @@ public interface FakturaService {
 	boolean add(Narudzbenica narudzbenica, List<ListaStavkiHelperObject> listaStavki);
 
 	boolean export(Long fakturaId);
+
+	List<Faktura> getKif(Date datumOd, Date datumDo);
 }

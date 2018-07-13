@@ -32,6 +32,14 @@ public class FakturaController {
 		return new ResponseEntity<List<FakturaDTO>>(Converter.convertFakturasToFakturaDTOs(fakturaService.getAll()), HttpStatus.OK);
 	}
 	
+	// GET ALL BY INTERVAL BETWEEN 2 DATES
+	@GetMapping("/getKif")
+	public ResponseEntity<List<FakturaDTO>> getKif(@RequestParam("datumOd") String datumOd, 
+			@RequestParam("datumDo") String datumDo) {
+		
+		return new ResponseEntity<List<FakturaDTO>>(Converter.convertFakturasToFakturaDTOs(fakturaService.getKif(java.sql.Date.valueOf(datumOd), java.sql.Date.valueOf(datumDo))), HttpStatus.OK);
+	}
+	
 	// GET ONE
 	@GetMapping("/getOne")
 	public ResponseEntity<FakturaDTO> getOneFaktura(@RequestParam("id") Long proizvodId) {
