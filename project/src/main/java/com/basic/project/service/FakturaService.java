@@ -18,4 +18,6 @@ public interface FakturaService {
 	boolean delete(Long id);
 
 	boolean add(Narudzbenica narudzbenica, List<ListaStavkiHelperObject> listaStavki);
+
+	boolean export(Long fakturaId);
 }

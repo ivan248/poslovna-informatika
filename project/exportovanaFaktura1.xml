@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<faktura>
+    <id>1</id>
+    <brojFakture>F100</brojFakture>
+    <datumFakture/>
+    <datumValute/>
+    <ukupanRabat>10.0</ukupanRabat>
+    <ukupanIznosBezPDV>1200.6</ukupanIznosBezPDV>
+    <ukupanPDV>20.0</ukupanPDV>
+    <ukupnoZaPlacanje>50000.0</ukupnoZaPlacanje>
+    <stavkeFakture>
+        <id>1</id>
+        <iznosPDV>18.0</iznosPDV>
+        <jedinicnaCena>2800.0</jedinicnaCena>
+        <kolicina>10</kolicina>
+        <osnovica>15.0</osnovica>
+        <proizvod>
+            <grupaProizvoda>
+                <id>1</id>
+                <nazivGrupeProizvoda>Psi</nazivGrupeProizvoda>
+            </grupaProizvoda>
+            <id>1</id>
+            <jedinicaMere>
+                <id>1</id>
+                <nazivJediniceMere>Brojno stanje</nazivJediniceMere>
+                <skracenica>br</skracenica>
+            </jedinicaMere>
+            <nazivProizvoda>Sibirski Malamut</nazivProizvoda>
+            <vrstaProizvoda>Zivotinja</vrstaProizvoda>
+        </proizvod>
+        <rabat>10.0</rabat>
+        <stopaPDV>5.0</stopaPDV>
+        <ukupanIznos>3000.0</ukupanIznos>
+    </stavkeFakture>
+    <stavkeFakture>
+        <id>2</id>
+        <iznosPDV>18.0</iznosPDV>
+        <jedinicnaCena>1800.0</jedinicnaCena>
+        <kolicina>10</kolicina>
+        <osnovica>15.0</osnovica>
+        <proizvod>
+            <grupaProizvoda>
+                <id>2</id>
+                <nazivGrupeProizvoda>Cigle</nazivGrupeProizvoda>
+            </grupaProizvoda>
+            <id>2</id>
+            <jedinicaMere>
+                <id>2</id>
+                <nazivJediniceMere>Tezina</nazivJediniceMere>
+                <skracenica>kg</skracenica>
+            </jedinicaMere>
+            <nazivProizvoda>Crvena cigla</nazivProizvoda>
+            <vrstaProizvoda>Gradjevinski materijal</vrstaProizvoda>
+        </proizvod>
+        <rabat>10.0</rabat>
+        <stopaPDV>5.0</stopaPDV>
+        <ukupanIznos>2000.0</ukupanIznos>
+    </stavkeFakture>
+    <poslovnaGodina>
+        <godina>2018</godina>
+        <id>1</id>
+        <preduzece>
+            <adresaPreduzeca>
+                <brojUlice>75</brojUlice>
+                <grad>Smederevo</grad>
+                <id>1</id>
+                <postanskiBroj>11300</postanskiBroj>
+                <ulica>Kosovska</ulica>
+            </adresaPreduzeca>
+            <email>mojepreduzece@gmail.com</email>
+            <id>1</id>
+            <kontaktTelefon>011500500</kontaktTelefon>
+            <naziv>Preduzece Marinko i sinovi</naziv>
+            <PIB>100200300</PIB>
+        </preduzece>
+        <zakljucena>false</zakljucena>
+    </poslovnaGodina>
+</faktura>

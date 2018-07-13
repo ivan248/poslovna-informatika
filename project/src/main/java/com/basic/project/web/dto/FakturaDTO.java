@@ -3,8 +3,12 @@ package com.basic.project.web.dto;
 import java.sql.Date;
 import java.util.List;
 
-import com.basic.project.domain.StavkaFakture;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name="faktura")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class FakturaDTO {
 
 	private Long id;

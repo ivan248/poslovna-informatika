@@ -1,11 +1,15 @@
 package com.basic.project.service.implementation;
 
+import java.io.File;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +26,8 @@ import com.basic.project.repository.ProizvodRepository;
 import com.basic.project.repository.StavkaFaktureRepository;
 import com.basic.project.repository.StopaPDVRepository;
 import com.basic.project.service.FakturaService;
+import com.basic.project.web.dto.Converter;
+import com.basic.project.web.dto.FakturaDTO;
 import com.basic.project.web.dto.ListaStavkiHelperObject;
 
 @Service
@@ -190,6 +196,34 @@ public class FakturaServiceImpl implements FakturaService {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public boolean export(Long fakturaId) {
+			
+		try {
+			Faktura fakturaIzBaze = fakturaRepository.findById(fakturaId).get();
+			FakturaDTO fakturaZaExport = Converter.convertFakturaToFakturaDTO(fakturaIzBaze);
+			
+			File file = new File("exportovanaFaktura" + fakturaId + ".xml");
+			JAXBContext jaxbContext;
+			
+			jaxbContext = JAXBContext.newInstance(FakturaDTO.class);
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+			
+			// output pretty printed
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			
+			jaxbMarshaller.marshal(fakturaZaExport, file);
+			
+			return true;
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 
 }
