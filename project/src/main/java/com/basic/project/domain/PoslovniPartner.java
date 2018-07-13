@@ -35,17 +35,17 @@ public class PoslovniPartner implements Serializable {
     
     @Size(max = 60)
     @Column
-    private String nazivPreduzeca;
+    private String nazivPoslovnogPartnera;
     
     @Column
     @Size(max = 30)
-    private String emailPreduzeca;
+    private String emailPoslovnogPartnera;
     
     @Column
-    private Integer pibPreduzeca;
+    private Integer pibPoslovnogPartnera;
     
     @Column
-    private Integer telefonPreduzeca;
+    private Integer telefonPoslovnogPartnera;
     
     @Column
     @Enumerated(EnumType.STRING)
@@ -55,7 +55,7 @@ public class PoslovniPartner implements Serializable {
     @JoinColumn(name = "adresa_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    private Adresa adresaPreduzeca;
+    private Adresa adresaPoslovnogPartnera;
     
     public PoslovniPartner() {
     	
@@ -69,36 +69,36 @@ public class PoslovniPartner implements Serializable {
 		this.id = id;
 	}
 
-	public String getNazivPreduzeca() {
-		return nazivPreduzeca;
+	public String getNazivPoslovnogPartnera() {
+		return nazivPoslovnogPartnera;
 	}
 
-	public void setNazivPreduzeca(String nazivPreduzeca) {
-		this.nazivPreduzeca = nazivPreduzeca;
+	public void setNazivPoslovnogPartnera(String nazivPoslovnogPartnera) {
+		this.nazivPoslovnogPartnera = nazivPoslovnogPartnera;
 	}
 
-	public String getEmailPreduzeca() {
-		return emailPreduzeca;
+	public String getEmailPoslovnogPartnera() {
+		return emailPoslovnogPartnera;
 	}
 
-	public void setEmailPreduzeca(String emailPreduzeca) {
-		this.emailPreduzeca = emailPreduzeca;
+	public void setEmailPoslovnogPartnera(String emailPoslovnogPartnera) {
+		this.emailPoslovnogPartnera = emailPoslovnogPartnera;
 	}
 
-	public Integer getPibPreduzeca() {
-		return pibPreduzeca;
+	public Integer getPibPoslovnogPartnera() {
+		return pibPoslovnogPartnera;
 	}
 
-	public void setPibPreduzeca(Integer pibPreduzeca) {
-		this.pibPreduzeca = pibPreduzeca;
+	public void setPibPoslovnogPartnera(Integer pibPoslovnogPartnera) {
+		this.pibPoslovnogPartnera = pibPoslovnogPartnera;
 	}
 
-	public Integer getTelefonPreduzeca() {
-		return telefonPreduzeca;
+	public Integer getTelefonPoslovnogPartnera() {
+		return telefonPoslovnogPartnera;
 	}
 
-	public void setTelefonPreduzeca(Integer telefonPreduzeca) {
-		this.telefonPreduzeca = telefonPreduzeca;
+	public void setTelefonPoslovnogPartnera(Integer telefonPoslovnogPartnera) {
+		this.telefonPoslovnogPartnera = telefonPoslovnogPartnera;
 	}
 
 	public PoslovniPartnerVrsta getPoslovniPartnerVrsta() {
@@ -109,19 +109,21 @@ public class PoslovniPartner implements Serializable {
 		this.poslovniPartnerVrsta = poslovniPartnerVrsta;
 	}
 
-	public Adresa getAdresaPreduzeca() {
-		return adresaPreduzeca;
+	public Adresa getAdresaPoslovnogPartnera() {
+		return adresaPoslovnogPartnera;
 	}
 
-	public void setAdresaPreduzeca(Adresa adresaPreduzeca) {
-		this.adresaPreduzeca = adresaPreduzeca;
+	public void setAdresaPoslovnogPartnera(Adresa adresaPoslovnogPartnera) {
+		this.adresaPoslovnogPartnera = adresaPoslovnogPartnera;
 	}
 
 	@Override
 	public String toString() {
-		return "PoslovniPartner [id=" + id + ", nazivPreduzeca=" + nazivPreduzeca + ", emailPreduzeca=" + emailPreduzeca
-				+ ", pibPreduzeca=" + pibPreduzeca + ", telefonPreduzeca=" + telefonPreduzeca
-				+ ", poslovniPartnerVrsta=" + poslovniPartnerVrsta + ", adresaPreduzeca=" + adresaPreduzeca + "]";
+		return "PoslovniPartner [id=" + id + ", nazivPoslovnogPartnera=" + nazivPoslovnogPartnera
+				+ ", emailPoslovnogPartnera=" + emailPoslovnogPartnera + ", pibPoslovnogPartnera="
+				+ pibPoslovnogPartnera + ", telefonPoslovnogPartnera=" + telefonPoslovnogPartnera
+				+ ", poslovniPartnerVrsta=" + poslovniPartnerVrsta + ", adresaPoslovnogPartnera="
+				+ adresaPoslovnogPartnera + "]";
 	}
-    
+
 }

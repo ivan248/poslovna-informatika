@@ -2,8 +2,10 @@ package com.basic.project.config;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,21 +15,27 @@ import org.springframework.stereotype.Component;
 
 import com.basic.project.domain.Adresa;
 import com.basic.project.domain.Cenovnik;
+import com.basic.project.domain.Faktura;
 import com.basic.project.domain.GrupaProizvoda;
 import com.basic.project.domain.JedinicaMere;
 import com.basic.project.domain.Narudzbenica;
 import com.basic.project.domain.PDV;
+import com.basic.project.domain.PoslovnaGodina;
 import com.basic.project.domain.PoslovniPartner;
 import com.basic.project.domain.PoslovniPartnerVrsta;
+import com.basic.project.domain.Preduzece;
 import com.basic.project.domain.Proizvod;
 import com.basic.project.domain.StavkaCenovnika;
+import com.basic.project.domain.StavkaFakture;
 import com.basic.project.domain.StopaPDV;
 import com.basic.project.repository.AdresaRepository;
 import com.basic.project.repository.CenovnikRepository;
+import com.basic.project.repository.FakturaRepository;
 import com.basic.project.repository.GrupaProizvodaRepository;
 import com.basic.project.repository.JedinicaMereRepository;
 import com.basic.project.repository.NarudzbenicaRepository;
 import com.basic.project.repository.PDVRepository;
+import com.basic.project.repository.PoslovnaGodinaRepository;
 import com.basic.project.repository.PoslovniPartnerRepository;
 import com.basic.project.repository.ProizvodRepository;
 import com.basic.project.repository.StavkaCenovnikaRepository;
@@ -67,6 +75,12 @@ public class DataLoader implements ApplicationRunner {
 	@Autowired
 	private StopaPDVRepository stopaPDVRepository;
 	
+	@Autowired
+	private PoslovnaGodinaRepository poslovnaGodinaRepository;
+	
+	@Autowired
+	private FakturaRepository fakturaRepository;
+	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 //		insertIntoPDV();
@@ -79,8 +93,114 @@ public class DataLoader implements ApplicationRunner {
 //		insertIntoPoslovniPartner();
 //		insertIntoNarudzbenica();
 //		insertIntoStopaPDV();
+//		insertIntoPoslovnaGodina();
+//		insertIntoFaktura();
 	}
 	
+	private void insertIntoPoslovnaGodina() {
+
+		PoslovnaGodina pg = new PoslovnaGodina();
+		
+		pg.setGodina(2018);
+		pg.setZakljucena(false);
+		pg.setPreduzece(Preduzece.getInstance());
+		
+		poslovnaGodinaRepository.save(pg);
+		
+		
+	}
+
+	private void insertIntoFaktura() {
+
+		Faktura f = new Faktura();
+		
+		f.setBrojFakture("F100");
+		f.setDatumFakture(java.sql.Date.valueOf("2018-06-27"));
+		f.setDatumValute(java.sql.Date.valueOf("2018-05-15"));
+		f.setPoslovnaGodina(poslovnaGodinaRepository.getOne(1L));
+		f.setUkupanIznosBezPDV(1200.6);
+		f.setUkupanPDV(20.0);
+		f.setUkupanRabat(10.0);
+		f.setUkupnoZaPlacanje(50000.0);
+		
+		List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
+		
+		StavkaFakture sf = new StavkaFakture();
+		
+		sf.setIznosPDV(18.0);
+		sf.setJedinicnaCena(2800.0);
+		sf.setKolicina(10);
+		sf.setOsnovica(15.0);
+		sf.setProizvod(proizvodRepository.getOne(1L));
+		sf.setRabat(10.0);
+		sf.setStopaPDV(5.0);
+		sf.setUkupanIznos(3000.0);
+		
+		stavkeFakture.add(sf);
+		
+		StavkaFakture sf1 = new StavkaFakture();
+		
+		sf1.setIznosPDV(18.0);
+		sf1.setJedinicnaCena(1800.0);
+		sf1.setKolicina(10);
+		sf1.setOsnovica(15.0);
+		sf1.setProizvod(proizvodRepository.getOne(1L));
+		sf1.setRabat(10.0);
+		sf1.setStopaPDV(5.0);
+		sf1.setUkupanIznos(2000.0);
+		
+		stavkeFakture.add(sf1);
+		
+		f.setStavkeFakture(stavkeFakture);
+		
+		fakturaRepository.save(f);
+		
+		/*Faktura f1 = new Faktura();
+		
+		f1.setBrojFakture("F100");
+		f1.setDatumFakture(java.sql.Date.valueOf("2018-06-27"));
+		f1.setDatumValute(java.sql.Date.valueOf("2018-05-15"));
+		f1.setPoslovnaGodina(poslovnaGodinaRepository.getOne(1L));
+		f1.setUkupanIznosBezPDV(1200.6);
+		f1.setUkupanPDV(20.0);
+		f1.setUkupanRabat(10.0);
+		f1.setUkupnoZaPlacanje(50000.0);
+		
+		List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
+		
+		StavkaFakture sf = new StavkaFakture();
+		
+		sf.setIznosPDV(18.0);
+		sf.setJedinicnaCena(2800.0);
+		sf.setKolicina(10);
+		sf.setOsnovica(15.0);
+		sf.setProizvod(proizvodRepository.getOne(1L));
+		sf.setRabat(10.0);
+		sf.setStopaPDV(5.0);
+		sf.setUkupanIznos(3000.0);
+		
+		stavkeFakture.add(sf);
+		
+		StavkaFakture sf1 = new StavkaFakture();
+		
+		sf1.setIznosPDV(18.0);
+		sf1.setJedinicnaCena(1800.0);
+		sf1.setKolicina(10);
+		sf1.setOsnovica(15.0);
+		sf1.setProizvod(proizvodRepository.getOne(1L));
+		sf1.setRabat(10.0);
+		sf1.setStopaPDV(5.0);
+		sf1.setUkupanIznos(2000.0);
+		
+		stavkeFakture.add(sf1);
+		
+		f.setStavkeFakture(stavkeFakture);
+		
+		fakturaRepository.save(f);*/
+		
+		
+	}
+
 	private void insertIntoAdresa() {
 
 		Adresa a = new Adresa();
@@ -108,11 +228,11 @@ public class DataLoader implements ApplicationRunner {
 		
 		PoslovniPartner p = new PoslovniPartner();
 		
-		p.setAdresaPreduzeca(adresaRepository.getOne(1L));
-		p.setEmailPreduzeca("radnja@email.com");
-		p.setNazivPreduzeca("Preduzece 1");
-		p.setPibPreduzeca(1234);
-		p.setTelefonPreduzeca(026555555);
+		p.setAdresaPoslovnogPartnera(adresaRepository.getOne(1L));
+		p.setEmailPoslovnogPartnera("radnja@email.com");
+		p.setNazivPoslovnogPartnera("Preduzece 1");
+		p.setPibPoslovnogPartnera(1234);
+		p.setTelefonPoslovnogPartnera(026555555);
 		p.setPoslovniPartnerVrsta(PoslovniPartnerVrsta.FIZICKO_LICE);
 		
 		poslovniPartnerRepository.save(p);

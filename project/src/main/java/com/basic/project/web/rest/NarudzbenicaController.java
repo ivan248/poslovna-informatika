@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.basic.project.domain.Narudzbenica;
 import com.basic.project.service.NarudzbenicaService;
 import com.basic.project.web.dto.Converter;
-import com.basic.project.web.dto.NarudzbenicaDTO;
 import com.basic.project.web.dto.NarudzbenicaReceiverDTO;
 
 @RestController
@@ -28,16 +26,17 @@ public class NarudzbenicaController {
 	private NarudzbenicaService narudzbenicaService;
 	
 	@GetMapping("/getAll")
-	public ResponseEntity<List<NarudzbenicaDTO>> getAll() {
+	public ResponseEntity<List<NarudzbenicaReceiverDTO>> getAll() {
 		
-		return new ResponseEntity<List<NarudzbenicaDTO>>(Converter.convertNarudzbenicasToNarudzbenicaDTOs(narudzbenicaService.getAll()), HttpStatus.OK);
+		return new ResponseEntity<List<NarudzbenicaReceiverDTO>>(Converter.convertNarudzbenicasToNarudzbenicaDTOs(narudzbenicaService.getAll()), HttpStatus.OK);
 	}
 	
 	// GET ONE
 	@GetMapping("/getOne")
-	public ResponseEntity<Narudzbenica> getOne(@RequestParam("id") Long id) {
+	public ResponseEntity<NarudzbenicaReceiverDTO> getOne(@RequestParam("id") Long id) {
 		
-		return new ResponseEntity<Narudzbenica>(narudzbenicaService.getOne(id), HttpStatus.OK);
+		return new ResponseEntity<NarudzbenicaReceiverDTO>(
+				Converter.convertNarudzbenicaToNarudzbenicaReceiverDTO(narudzbenicaService.getOne(id)), HttpStatus.OK);
 	}
 	
 	/* FORMAT FOR JSON FOR ADDING A NARUDZBENICA

@@ -1,7 +1,9 @@
 package com.basic.project.web.dto;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.basic.project.domain.Adresa;
 import com.basic.project.domain.Cenovnik;
@@ -211,13 +213,13 @@ public class Converter {
 		
 		PoslovniPartner pp = new PoslovniPartner();
 		
-		pp.setAdresaPreduzeca(poslovniPartnerDTO.getAdresaPreduzeca());
-		pp.setEmailPreduzeca(poslovniPartnerDTO.getEmailPreduzeca());
+		pp.setAdresaPoslovnogPartnera(poslovniPartnerDTO.getAdresaPoslovnogPartnera());
+		pp.setEmailPoslovnogPartnera(poslovniPartnerDTO.getEmailPoslovnogPartnera());
 		pp.setId(poslovniPartnerDTO.getId());
-		pp.setNazivPreduzeca(poslovniPartnerDTO.getNazivPreduzeca());
-		pp.setPibPreduzeca(poslovniPartnerDTO.getPibPreduzeca());
+		pp.setNazivPoslovnogPartnera(poslovniPartnerDTO.getNazivPoslovnogPartnera());
+		pp.setPibPoslovnogPartnera(poslovniPartnerDTO.getPibPoslovnogPartnera());
 		pp.setPoslovniPartnerVrsta(poslovniPartnerDTO.getPoslovniPartnerVrsta());
-		pp.setTelefonPreduzeca(poslovniPartnerDTO.getTelefonPreduzeca());
+		pp.setTelefonPoslovnogPartnera(poslovniPartnerDTO.getTelefonPoslovnogPartnera());
 		
 		return pp;
 	}
@@ -234,18 +236,56 @@ public class Converter {
 		return n;
 	}
 	
-	public static List<NarudzbenicaDTO> convertNarudzbenicasToNarudzbenicaDTOs(List<Narudzbenica> listaNarudzbenica) {
+	public static List<NarudzbenicaReceiverDTO> convertNarudzbenicasToNarudzbenicaDTOs(List<Narudzbenica> listaNarudzbenica) {
 		
-		List<NarudzbenicaDTO> listaNarudzbenicaDTO = new ArrayList<NarudzbenicaDTO>();
+		List<NarudzbenicaReceiverDTO> listaNarudzbenicaDTO = new ArrayList<NarudzbenicaReceiverDTO>();
 		
 		for(Narudzbenica n:listaNarudzbenica)
 		{
-			listaNarudzbenicaDTO.add(convertNarudzbenicaToNarudzbenicaDTO(n));
+			listaNarudzbenicaDTO.add(convertNarudzbenicaToNarudzbenicaReceiverDTO(n));
 		}
 		
 		return listaNarudzbenicaDTO;
 	}
 	
+	public static NarudzbenicaReceiverDTO convertNarudzbenicaToNarudzbenicaReceiverDTO(Narudzbenica narudzbenica) {
+
+		NarudzbenicaReceiverDTO nrd = new NarudzbenicaReceiverDTO();
+		
+		nrd.setId(narudzbenica.getId());
+		
+		PoslovniPartnerDTO p = new PoslovniPartnerDTO();
+		
+		Adresa a = new Adresa();
+		
+		a.setBrojUlice(narudzbenica.getPoslovniPartner().getAdresaPoslovnogPartnera().getBrojUlice());
+		a.setGrad(narudzbenica.getPoslovniPartner().getAdresaPoslovnogPartnera().getGrad());
+		a.setId(narudzbenica.getPoslovniPartner().getAdresaPoslovnogPartnera().getId());
+		a.setPostanskiBroj(narudzbenica.getPoslovniPartner().getAdresaPoslovnogPartnera().getPostanskiBroj());
+		a.setUlica(narudzbenica.getPoslovniPartner().getAdresaPoslovnogPartnera().getUlica());
+		
+		p.setAdresaPoslovnogPartnera(a);
+		p.setEmailPoslovnogPartnera(narudzbenica.getPoslovniPartner().getEmailPoslovnogPartnera());
+		p.setId(narudzbenica.getPoslovniPartner().getId());
+		p.setNazivPoslovnogPartnera(narudzbenica.getPoslovniPartner().getNazivPoslovnogPartnera());
+		p.setPibPoslovnogPartnera(narudzbenica.getPoslovniPartner().getPibPoslovnogPartnera());
+		p.setPoslovniPartnerVrsta(narudzbenica.getPoslovniPartner().getPoslovniPartnerVrsta());
+		p.setTelefonPoslovnogPartnera(narudzbenica.getPoslovniPartner().getTelefonPoslovnogPartnera());
+		
+		nrd.setPoslovniPartner(p);
+		
+		Map<Long, Integer> listaStavki = new HashMap<Long, Integer>();
+		
+		for (Map.Entry<Proizvod, Integer> entry : narudzbenica.getListaStavki().entrySet())
+		{
+		    listaStavki.put(entry.getKey().getId(), entry.getValue());
+		}
+		
+		nrd.setListaStavki(listaStavki);
+		
+		return nrd;
+	}
+
 	public static NarudzbenicaDTO convertNarudzbenicaToNarudzbenicaDTO(Narudzbenica narudzbenica) {
 
 		NarudzbenicaDTO narudzbenicaDTO = new NarudzbenicaDTO();
@@ -257,19 +297,19 @@ public class Converter {
 		
 		Adresa a = new Adresa();
 		
-		a.setBrojUlice(narudzbenica.getPoslovniPartner().getAdresaPreduzeca().getBrojUlice());
-		a.setGrad(narudzbenica.getPoslovniPartner().getAdresaPreduzeca().getGrad());
-		a.setId(narudzbenica.getPoslovniPartner().getAdresaPreduzeca().getId());
-		a.setPostanskiBroj(narudzbenica.getPoslovniPartner().getAdresaPreduzeca().getPostanskiBroj());
-		a.setUlica(narudzbenica.getPoslovniPartner().getAdresaPreduzeca().getUlica());
+		a.setBrojUlice(narudzbenica.getPoslovniPartner().getAdresaPoslovnogPartnera().getBrojUlice());
+		a.setGrad(narudzbenica.getPoslovniPartner().getAdresaPoslovnogPartnera().getGrad());
+		a.setId(narudzbenica.getPoslovniPartner().getAdresaPoslovnogPartnera().getId());
+		a.setPostanskiBroj(narudzbenica.getPoslovniPartner().getAdresaPoslovnogPartnera().getPostanskiBroj());
+		a.setUlica(narudzbenica.getPoslovniPartner().getAdresaPoslovnogPartnera().getUlica());
 		
-		p.setAdresaPreduzeca(a);
-		p.setEmailPreduzeca(narudzbenica.getPoslovniPartner().getEmailPreduzeca());
+		p.setAdresaPoslovnogPartnera(a);
+		p.setEmailPoslovnogPartnera(narudzbenica.getPoslovniPartner().getEmailPoslovnogPartnera());
 		p.setId(narudzbenica.getPoslovniPartner().getId());
-		p.setNazivPreduzeca(narudzbenica.getPoslovniPartner().getNazivPreduzeca());
-		p.setPibPreduzeca(narudzbenica.getPoslovniPartner().getPibPreduzeca());
+		p.setNazivPoslovnogPartnera(narudzbenica.getPoslovniPartner().getNazivPoslovnogPartnera());
+		p.setPibPoslovnogPartnera(narudzbenica.getPoslovniPartner().getPibPoslovnogPartnera());
 		p.setPoslovniPartnerVrsta(narudzbenica.getPoslovniPartner().getPoslovniPartnerVrsta());
-		p.setTelefonPreduzeca(narudzbenica.getPoslovniPartner().getTelefonPreduzeca());
+		p.setTelefonPoslovnogPartnera(narudzbenica.getPoslovniPartner().getTelefonPoslovnogPartnera());
 		
 		narudzbenicaDTO.setPoslovniPartner(p);
 		

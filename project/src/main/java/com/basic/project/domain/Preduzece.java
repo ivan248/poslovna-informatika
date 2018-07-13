@@ -4,10 +4,18 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity(name = "Preduzece")
 @Table(name = "preduzece")
 public class Preduzece implements Serializable {
@@ -40,6 +48,12 @@ public class Preduzece implements Serializable {
 	
 	@Column
 	private String email;
+	
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "adresa_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Adresa adresaPreduzeca;
 
 	public Long getId() {
 		return id;
@@ -87,6 +101,20 @@ public class Preduzece implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Adresa getAdresaPreduzeca() {
+		return adresaPreduzeca;
+	}
+
+	public void setAdresaPreduzeca(Adresa adresaPreduzeca) {
+		this.adresaPreduzeca = adresaPreduzeca;
+	}
+
+	@Override
+	public String toString() {
+		return "Preduzece [id=" + id + ", naziv=" + naziv + ", adresa=" + adresa + ", kontaktTelefon=" + kontaktTelefon
+				+ ", PIB=" + PIB + ", email=" + email + ", adresaPreduzeca=" + adresaPreduzeca + "]";
 	}
 	    
 }

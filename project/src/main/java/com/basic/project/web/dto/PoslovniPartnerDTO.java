@@ -6,12 +6,12 @@ import com.basic.project.domain.PoslovniPartnerVrsta;
 public class PoslovniPartnerDTO {
 
     private Long id;
-    private String nazivPreduzeca;
-    private String emailPreduzeca;
-    private Integer pibPreduzeca;
-    private Integer telefonPreduzeca;
+    private String nazivPoslovnogPartnera;
+    private String emailPoslovnogPartnera;
+    private Integer pibPoslovnogPartnera;
+    private Integer telefonPoslovnogPartnera;
     private PoslovniPartnerVrsta poslovniPartnerVrsta;
-    private Adresa adresaPreduzeca;
+    private Adresa adresaPoslovnogPartnera;
     
     public PoslovniPartnerDTO() {
     	
@@ -25,36 +25,36 @@ public class PoslovniPartnerDTO {
 		this.id = id;
 	}
 
-	public String getNazivPreduzeca() {
-		return nazivPreduzeca;
+	public String getNazivPoslovnogPartnera() {
+		return nazivPoslovnogPartnera;
 	}
 
-	public void setNazivPreduzeca(String nazivPreduzeca) {
-		this.nazivPreduzeca = nazivPreduzeca;
+	public void setNazivPoslovnogPartnera(String nazivPoslovnogPartnera) {
+		this.nazivPoslovnogPartnera = nazivPoslovnogPartnera;
 	}
 
-	public String getEmailPreduzeca() {
-		return emailPreduzeca;
+	public String getEmailPoslovnogPartnera() {
+		return emailPoslovnogPartnera;
 	}
 
-	public void setEmailPreduzeca(String emailPreduzeca) {
-		this.emailPreduzeca = emailPreduzeca;
+	public void setEmailPoslovnogPartnera(String emailPoslovnogPartnera) {
+		this.emailPoslovnogPartnera = emailPoslovnogPartnera;
 	}
 
-	public Integer getPibPreduzeca() {
-		return pibPreduzeca;
+	public Integer getPibPoslovnogPartnera() {
+		return pibPoslovnogPartnera;
 	}
 
-	public void setPibPreduzeca(Integer pibPreduzeca) {
-		this.pibPreduzeca = pibPreduzeca;
+	public void setPibPoslovnogPartnera(Integer pibPoslovnogPartnera) {
+		this.pibPoslovnogPartnera = pibPoslovnogPartnera;
 	}
 
-	public Integer getTelefonPreduzeca() {
-		return telefonPreduzeca;
+	public Integer getTelefonPoslovnogPartnera() {
+		return telefonPoslovnogPartnera;
 	}
 
-	public void setTelefonPreduzeca(Integer telefonPreduzeca) {
-		this.telefonPreduzeca = telefonPreduzeca;
+	public void setTelefonPoslovnogPartnera(Integer telefonPoslovnogPartnera) {
+		this.telefonPoslovnogPartnera = telefonPoslovnogPartnera;
 	}
 
 	public PoslovniPartnerVrsta getPoslovniPartnerVrsta() {
@@ -65,19 +65,19 @@ public class PoslovniPartnerDTO {
 		this.poslovniPartnerVrsta = poslovniPartnerVrsta;
 	}
 
-	public Adresa getAdresaPreduzeca() {
-		return adresaPreduzeca;
+	public Adresa getAdresaPoslovnogPartnera() {
+		return adresaPoslovnogPartnera;
 	}
 
-	public void setAdresaPreduzeca(Adresa adresaPreduzeca) {
-		this.adresaPreduzeca = adresaPreduzeca;
+	public void setAdresaPoslovnogPartnera(Adresa adresaPoslovnogPartnera) {
+		this.adresaPoslovnogPartnera = adresaPoslovnogPartnera;
 	}
 
 	@Override
 	public String toString() {
-		return "PoslovniPartnerDTO [id=" + id + ", nazivPreduzeca=" + nazivPreduzeca + ", emailPreduzeca="
-				+ emailPreduzeca + ", pibPreduzeca=" + pibPreduzeca + ", telefonPreduzeca=" + telefonPreduzeca
-				+ ", poslovniPartnerVrsta=" + poslovniPartnerVrsta + ", adresaPreduzeca=" + adresaPreduzeca + "]";
+		return "PoslovniPartnerDTO [id=" + id + ", nazivPoslovnogPartnera=" + nazivPoslovnogPartnera + ", emailPoslovnogPartnera="
+				+ emailPoslovnogPartnera + ", pibPoslovnogPartnera=" + pibPoslovnogPartnera + ", telefonPoslovnogPartnera=" + telefonPoslovnogPartnera
+				+ ", poslovniPartnerVrsta=" + poslovniPartnerVrsta + ", adresaPoslovnogPartnera=" + adresaPoslovnogPartnera + "]";
 	}
     
 }
